@@ -7,7 +7,9 @@ import Form from './components/form/Form';
 function App() {
   return (
     <Provider store={store}>
-    <Form/>
+     <Router>
+      <Route exact path="/" component={Form}/>
+    </Router>
     </Provider>
   );
 }
