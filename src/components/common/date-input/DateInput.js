@@ -8,8 +8,7 @@ const DateInput = ({placeholder,type,id,onChange}) => {
 
     return (
        <Fragment>
-        <input onChange={onChange} ref={(ref)=>upload=ref} type="file" className="container" placeholder={placeholder} style={{width:'85%',height:40,borderRadius:10,padding:2,display:'none'}}/>
-       <button className="container" style={{width:'50%',height:35,borderRadius:10,backgroundColor:'#F19449',color:'#fff'}} onClick={()=>upload.click()}>Upload your resume</button>
+        <input style={{width:'82%',height:45,borderRadius:10,border:'1px solid black',fontSize:'1.2vw',padding:'0 3%'}} className="container" type="date"  placeholder={placeholder} />
        </Fragment>
                
     );
