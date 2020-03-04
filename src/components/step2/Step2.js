@@ -1,23 +1,49 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {useDispatch} from 'react-redux';
 import backButton from '../../assets/back-button.svg';
-import avatar from '../../assets/avatar-icon.svg';
+
 import Input from '../common/input/Input';
 import { BACK } from '../../redux/actions/types';
 import FileInput from '../common/file-input/FileInput';
 import DateInput from '../common/date-input/DateInput';
 import RadioInput from '../common/radio-input/RadioInput';
+import Avatar from '../avatar/Avatar';
 
 const Step2 = () => {
+
+    const [avatar,setAvatar]=useState('');
 
     const dispatch=useDispatch();
 
     const onChangeFiles=(e)=>{
 
-        console.log('e',e.target.files);
+        // console.log('e',e.target.files);
 
     }
 
+    const onChangeAvatar=(e)=>{
+
+        const {files}=e.target;
+
+        console.log('e',files);
+        console.log('e.length',files.length);
+
+        if(files.length>0){
+
+            const reader=new FileReader();
+            
+            reader.readAsDataURL(files[0]);
+            reader.onloadend=()=>{
+                
+                console.log('image',reader.result)
+                setAvatar(reader.result);
+                
+            }
+            
+    }
+            console.log('e',files)
+        }
+        
     return (
         <div style={{width:'100%',display:'flex',flexDirection:'column',flex:1,padding:5}}>
             <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',flex:1,padding:10}}>
@@ -29,10 +55,7 @@ const Step2 = () => {
             </div>
             </div>
             <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'space-between',flex:3}}>
-                <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-                    <img src={avatar} style={{width:100,height:100}}/>
-                    <span style={{fontSize:'1vw'}}>Click to edit</span>
-                </div>
+               <Avatar avatar={avatar} onChange={onChangeAvatar}/>
                 <div style={{width:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'space-evenly',flex:1}}>
                 <DateInput placeholder="Enter your birth date"/>
                 <RadioInput placeholder="Select your gender"/>
