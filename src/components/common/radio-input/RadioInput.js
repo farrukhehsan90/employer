@@ -1,29 +1,22 @@
 import React, { Fragment } from "react";
-import "./FileInput.scss";
+import "./RadioInput.scss";
 
 const DateInput = ({ placeholder, type, id, onChange,name }) => {
   const randomId = `radio-input${Math.round(Math.random * 1000)}`;
 
   return (
     <Fragment>
-        <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',width:'85%'}}>
+        <div className="radio-container">
 
-      <span style={{whiteSpace:'nowrap'}}>{placeholder}</span>
+      <span className="radio-container--text">{placeholder}</span>
       
-      <div style={{display:'flex',justifyContent:'space-evenly',alignItems:'center',width:'45%'}}>
+      <div className="radio-container__radio">
       <label htmlFor="Boy">Boy</label>
       <input
         name={name?name:randomId}
         id={"Boy"}
-        style={{
-            width: "82%",
-            height: 45,
-            borderRadius: 10,
-            border: "1px solid black",
-            fontSize: "1.2vw",
-            padding: "0 3%"
-        }}
-        className="container"
+       
+        className="radio-container__single-radio"
         type="radio"
         placeholder={placeholder}
         />
@@ -31,15 +24,8 @@ const DateInput = ({ placeholder, type, id, onChange,name }) => {
       <input
         name={name?name:randomId}
         id={"Girl"}
-        style={{
-            width: "82%",
-            height: 45,
-            borderRadius: 10,
-            border: "1px solid black",
-            fontSize: "1.2vw",
-            padding: "0 3%"
-        }}
-        className="container"
+       
+        className="radio-container__single-radio"
         type="radio"
         placeholder={placeholder}
         />

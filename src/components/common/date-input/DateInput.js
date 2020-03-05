@@ -8,7 +8,7 @@ const DateInput = ({placeholder,type,id,onChange}) => {
 
     return (
        <Fragment>
-        <input style={{width:'82%',height:45,borderRadius:10,border:'1px solid black',fontSize:'1.2vw',padding:'0 3%'}} className="container" type="date"  placeholder={placeholder} />
+        <input  className="date-container" type="date"  placeholder={placeholder} />
        </Fragment>
                
     );
