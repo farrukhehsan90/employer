@@ -2,17 +2,51 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  height: 70px;
 
   .avatar-container__image {
-    width: 100;
-    height: 100;
+    width: 100px;
+    height: 100px;
   }
 
   .avatar-container__text {
     font-size: 1vw;
   }
+
+  .avatar-container__crop {
+    width: 60%;
+    height: 60px;
+  }
 }
 
-.avatar-input-file{
-    display:none;
+.avatar-input-file {
+  display: none;
+}
+
+.crop-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+
+  .crop-container__group {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    z-index: 100;
+    position: absolute;
+    bottom: -50%;
+    align-items: center;
+
+    .crop-container__tick {
+      width: 35px;
+      height: 35px;
+    }
+    .crop-container__close {
+      width: 35px;
+      height: 35px;
+    }
+  }
 }

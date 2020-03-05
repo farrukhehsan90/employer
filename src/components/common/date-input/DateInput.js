@@ -1,17 +1,14 @@
-import React, { Fragment } from 'react';
-import './FileInput.scss';
+import React, { Fragment } from "react";
+import "./DateInput.scss";
 
-const DateInput = ({placeholder,type,id,onChange}) => {
+const DateInput = ({ placeholder, type, id, onChange }) => {
+  let upload = null;
 
-    let upload=null;
-
-
-    return (
-       <Fragment>
-        <input  className="date-container" type="date"  placeholder={placeholder} />
-       </Fragment>
-               
-    );
-}
+  return (
+    <Fragment>
+      <input className="date-container" type="date" placeholder={placeholder} />
+    </Fragment>
+  );
+};
 
 export default DateInput;

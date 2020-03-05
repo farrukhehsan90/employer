@@ -1,65 +1,146 @@
-import React, { Fragment } from 'react';
-import {connect,useDispatch,useSelector} from 'react-redux';
-import {login,signup} from '../../redux/actions/authActions';
-import Spinner from '../common/Spinner';
-import Input from '../common/input/Input';
-import Step2 from '../step2/Step2';
+import React, { Fragment, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { login, signup, onChangeForm } from "../../redux/actions/authActions";
+import Spinner from "../common/Spinner";
+import Input from "../common/input/Input";
+import Step2 from "../step2/Step2";
 
-import './Form.scss';
+import "./Form.scss";
+import { BACK } from "../../redux/actions/types";
 
-const Form = () => {
+const Form = ({ history }) => {
+  const { auth, form } = useSelector(state => state);
 
-    const {auth,form}=useSelector(state=>state);
-    
-    const {loading,isAuthenticated,atStep2}=auth;
+  const [error, setError] = useState({});
 
-  
+  const dispatch = useDispatch();
 
-    const onSubmitLogin=(e)=>{
-        console.log('auth',auth);
-        e.preventDefault();
-        signup();
-        console.log('login submitted');
+  const {
+    loading,
+    isAuthenticated,
+    atStep2,
+    email,
+    password,
+    userName,
+    firstName,
+    lastName
+  } = auth;
+
+  const onClickNext = e => {
+    e.preventDefault();
+
+    setError({});
+
+    const errors = {};
+
+    if (!userName) {
+      errors.userName = "Please enter a username";
+      setError(errors);
+      return;
+    }
+    if (!firstName) {
+      errors.firstName = "Please enter your first name";
+      setError(errors);
+      return;
     }
 
-    return (
-        <Fragment>
-        <div className="form-page-container">
-            <div className="form-page-container__card ">
-            <div className="form-page-container__card--container">
-            {loading?<Spinner/>:
-                !atStep2?<Step2/>
-                :
-                <Fragment>
+    if (!lastName) {
+      errors.lastName = "Please enter your last name";
+      setError(errors);
+      return;
+    }
+
+    return dispatch({
+      type: BACK,
+      payload: true
+    });
+  };
+
+  const onChange = (e, name) => {
+    const { value } = e.target;
+
+    dispatch(
+      onChangeForm({
+        key: name,
+        value
+      })
+    );
+
+    return;
+  };
+
+  return (
+    <Fragment>
+      <div className="form-page-container">
+        <div className="form-page-container__card ">
+          <div className="form-page-container__card--container">
+            {loading ? (
+              <Spinner />
+            ) : atStep2 ? (
+              <Step2 />
+            ) : (
+              <Fragment>
                 <div className="form-page-container__card--title">
-                <h1>Sign Up</h1>
+                  <h1 className="form-page-container__sign-up">Sign Up</h1>
                 </div>
 
-                <form noValidate onSubmit={onSubmitLogin}>
-                <Input placeholder="Choose a username"/>
-                <Input placeholder="Enter First Name"/>
-                <Input placeholder="Enter Last Name"/>
-                <button className="form-page-container__card--next-button">
+                <form
+                  className="form-page-container__form"
+                  noValidate
+                  onSubmit={onClickNext}
+                >
+                  <Input
+                    errors={error}
+                    name="userName"
+                    value={userName}
+                    onChange={onChange}
+                    placeholder="Choose a username"
+                  />
+                  <Input
+                    errors={error}
+                    name="firstName"
+                    value={firstName}
+                    onChange={onChange}
+                    placeholder="Enter First Name"
+                  />
+                  <Input
+                    errors={error}
+                    name="lastName"
+                    value={lastName}
+                    onChange={onChange}
+                    placeholder="Enter Last Name"
+                  />
+                  <button
+                    onClick={onClickNext}
+                    className="form-page-container__card--next-button"
+                  >
                     Next
-                </button>
+                  </button>
                 </form>
-                </Fragment>
-                }
-        
-               </div>
-               <h5 className="form-page-container__card--existing-account">Already have an account?<span className="form-page-container__card--existing-account-subtext"> Login</span></h5>
-            </div>
+              </Fragment>
+            )}
+          </div>
+          <h5 className="form-page-container__card--existing-account">
+            Already have an account?
+            <span className="form-page-container__card--existing-account-subtext">
+              {" "}
+              Login
+            </span>
+          </h5>
+        </div>
 
-            <div className="form-page-container__landing">
-               <h1 className="form-page-container__landing--title">Welcome to Employer</h1>
-               <img src='https://media.giphy.com/media/vuOw3fiAdjVNYMBjoh/giphy.gif'  className="form-page-container__landing--image"/>
-            </div>
-        </div>}
-        </Fragment>
-    );
-}
-
-
-
+        <div className="form-page-container__landing">
+          <h1 className="form-page-container__landing--title">
+            Welcome to Employer
+          </h1>
+          <img
+            src="https://media.giphy.com/media/vuOw3fiAdjVNYMBjoh/giphy.gif"
+            className="form-page-container__landing--image"
+          />
+        </div>
+      </div>
+    </Fragment>
+  );
+};
 
 export default Form;

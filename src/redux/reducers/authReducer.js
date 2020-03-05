@@ -1,50 +1,53 @@
-import { LOADING,BACK } from "../actions/types";
+import { LOADING, BACK, SAVE_USER_DETAILS, DONE } from "../actions/types";
 import { SIGNUP } from "../actions/types";
 
-
-const initialState={
-
-    email:'',
-    password:'',
-    isAuthenticated:false,
-    loading:false,
-    atStep2:false
-
-
+const initialState = {
+  email: "",
+  password: "",
+  userName: "",
+  firstName: "",
+  lastName: "",
+  isAuthenticated: false,
+  loading: false,
+  atStep2: false,
+  doneWithStep2: false
 };
 
+const authReducer = (state = initialState, action) => {
+  const { type, payload } = action;
 
-const authReducer=(state=initialState,action)=>{
-
-    const {type,payload}=action;
-
-switch(type){
-
+  switch (type) {
     case LOADING:
-        console.log('action.payload',action.payload);
-        return {
-            ...state,
-            loading:payload
-        }
+      return {
+        ...state,
+        loading: payload
+      };
+    case SAVE_USER_DETAILS:
+      const { key, value } = payload;
+
+      return {
+        ...state,
+        [key]: value
+      };
     case SIGNUP:
-        return {
-            ...state,
-            user:payload.user,
-            atStep2:payload.atStep2
-        }
+      return {
+        ...state,
+        user: payload.user,
+        atStep2: payload.atStep2
+      };
     case BACK:
-        return {
-            ...state,
-            atStep2:false
-        }
+      return {
+        ...state,
+        atStep2: action.payload
+      };
+    case DONE:
+      return {
+        ...state,
+        doneWithStep2: true
+      };
     default:
-        return state;
-
-}
-
-
-
-}
-
+      return state;
+  }
+};
 
 export default authReducer;

@@ -16,7 +16,7 @@
     justify-content: center;
 
     .form-page-container__card--container {
-      border-radius: 10;
+      border-radius: 10px;
       width: 100%;
       height: 80%;
       align-self: center;
@@ -27,69 +27,85 @@
       background-color: #fff;
     }
 
-
-    .form-page-container__card--title{
-        padding-bottom:20;
-        height:40%;
-        display:flex;
-        align-items:center;
+    .form-page-container__sign-up {
+      font-size: 3vw;
     }
 
-    .form-page-container__card--form{
-        padding:40;
-        height:50%;
-        display:flex;
-        flex-direction:column;
-        justify-content:space-between;
-        align-items:center;
-        width:100%;
+    .form-page-container__card--title {
+      padding-bottom: 20px;
+      height: 40%;
+      display: flex;
+      align-items: center;
     }
 
-    .form-page-container__card--next-button{
-
-        width:86%;
-        height:50;
-        border-radius:10;
-        background-color:#3085A8;
-        color:#fff;
-        font-size:1.5vw;
-        font-weight:600;
+    .form-page-container__card--form {
+      padding: 40px;
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
     }
 
-    .form-page-container__card--existing-account{
-        color:#fff;
-
-        .form-page-container__card--existing-account-subtext{
-            color:#000;
-        }
+    .form-page-container__card--next-button {
+      width: 86%;
+      height: 50px;
+      border-radius: 10px;
+      background-color: #3085a8;
+      color: #fff;
+      font-size: 1.5vw;
+      font-weight: 600;
     }
 
+    .form-page-container__card--existing-account {
+      color: #fff;
 
+      .form-page-container__card--existing-account-subtext {
+        color: #000;
+      }
+    }
   }
 
+  .form-page-container__landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+    justify-content: flex-start;
 
-  .form-page-container__landing{
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-
-    .form-page-container__landing--title{
-        color:#fff;
+    .form-page-container__landing--title {
+      color: #fff;
+      font-size: 3vw;
+      white-space: nowrap;
     }
-    
-    .form-page-container__landing--image{
-        width:100%;
-        height:auto;
-        object-fit:cover;
+
+    .form-page-container__landing--image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
     }
-  
+  }
+  .form-page-container__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    justify-content: space-evenly;
+  }
 
-}
+  @media only screen and (max-width: 700px) {
+    .form-page-container__landing {
+      width: 0;
+    }
+    .form-page-container__landing--title {
+      width: 0;
+      display: none;
+    }
 
-
-
-
-
+    .form-page-container__card {
+      width: 90vw;
+    }
+  }
 }

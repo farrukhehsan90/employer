@@ -1,30 +1,19 @@
-import {SAVE_USER_DETAILS} from '../actions/types';
+import { SAVE_USER_DETAILS } from "../actions/types";
 
-const initialState={
-
-    email:'',
-    password:'',
-    isAuthenticated:false
-
-
+const initialState = {
+  email: "",
+  password: "",
+  isAuthenticated: false
 };
 
-
-const formReducer=(state=initialState,action)=>{
-
-switch(action.types){
-
+const formReducer = (state = initialState, action) => {
+  switch (action.types) {
     case SAVE_USER_DETAILS:
-        return state;
+      return state;
 
     default:
-        return state;
-
-}
-
-
-
-}
-
+      return state;
+  }
+};
 
 export default formReducer;
