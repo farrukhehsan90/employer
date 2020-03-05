@@ -1,6 +1,5 @@
 import React from "react";
-import done from "../../assets/done.gif";
-import "./Done.scss";
+import "./index.scss";
 
 const Done = () => {
   return (
@@ -8,6 +7,7 @@ const Done = () => {
       <div className="done__main-text">You've done it!</div>
       <div className="done__sub-text">We'll get back to you!</div>
       <img
+        alt="sign-up successful"
         src="https://media.giphy.com/media/5BZslN01evFcI/giphy.gif"
         className="done-image"
       />

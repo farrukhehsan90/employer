@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
-import "./DateInput.scss";
+import "./index.scss";
 
-const DateInput = ({ placeholder, type, id, onChange }) => {
-  let upload = null;
+const DateInput = ({ placeholder}) => {
 
   return (
     <Fragment>

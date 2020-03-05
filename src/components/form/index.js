@@ -1,30 +1,21 @@
 import React, { Fragment, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { login, signup, onChangeForm } from "../../redux/actions/authActions";
-import Spinner from "../common/Spinner";
-import Input from "../common/input/Input";
-import Step2 from "../step2/Step2";
+import { useDispatch, useSelector } from "react-redux";
+import { onChangeForm } from "../../__redux/actions/authActions";
+import Spinner from "../common/spinner";
+import Input from "../common/input";
+import Step2 from "../step2";
 
-import "./Form.scss";
-import { BACK } from "../../redux/actions/types";
+import "./index.scss";
+import { BACK } from "../../__redux/actions/types";
 
-const Form = ({ history }) => {
-  const { auth, form } = useSelector(state => state);
+const Form = () => {
+  const { auth } = useSelector(state => state);
 
   const [error, setError] = useState({});
 
   const dispatch = useDispatch();
 
-  const {
-    loading,
-    isAuthenticated,
-    atStep2,
-    email,
-    password,
-    userName,
-    firstName,
-    lastName
-  } = auth;
+  const { loading, atStep2, userName, firstName, lastName } = auth;
 
   const onClickNext = e => {
     e.preventDefault();
@@ -134,6 +125,7 @@ const Form = ({ history }) => {
             Welcome to Employer
           </h1>
           <img
+            alt="main"
             src="https://media.giphy.com/media/vuOw3fiAdjVNYMBjoh/giphy.gif"
             className="form-page-container__landing--image"
           />

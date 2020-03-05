@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import csv from "../../../assets/csv-format.png";
-import doc from "../../../assets/doc-format.png";
-import image from "../../../assets/image-format.png";
-import pdf from "../../../assets/pdf-format.png";
+import csv from "../../../__assets/csv-format.png";
+import doc from "../../../__assets/doc-format.png";
+import pdf from "../../../__assets/pdf-format.png";
 
-import "./File.scss";
+import "./index.scss";
 
-const File = ({ type, file, key, onChange }) => {
+const File = ({ type, file, onChange }) => {
   const [fileImage, setFileImage] = useState("");
 
   useEffect(() => {
@@ -41,7 +40,11 @@ const File = ({ type, file, key, onChange }) => {
 
   return (
     <div className="file-component-container">
-      <img src={fileImage} className="file-component-container__image" />
+      <img
+        alt="icon"
+        src={fileImage}
+        className="file-component-container__image"
+      />
       <input
         className="file-component-container__text"
         type="text"

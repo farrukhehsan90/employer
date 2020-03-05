@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import "./FileInput.scss";
+import "./index.scss";
 
 const FileInput = ({ placeholder, type, id, onChange }) => {
   let upload = null;

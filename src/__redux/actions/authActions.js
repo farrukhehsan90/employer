@@ -1,5 +1,5 @@
-import { LOGIN, LOADING, SIGNUP, SAVE_USER_DETAILS } from "./types";
-import store from "../store/store";
+import { LOADING, SIGNUP, SAVE_USER_DETAILS } from "./types";
+import store from "../store";
 
 export const login = () => {};
 

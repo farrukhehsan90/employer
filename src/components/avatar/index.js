@@ -1,11 +1,11 @@
 import React, { Fragment, useRef } from "react";
-import placeholderImage from "../../assets/avatar-icon.svg";
+import placeholderImage from "../../__assets/avatar-icon.svg";
 import Cropper from "react-cropper";
-import tickIcon from "../../assets/tick-icon.png";
-import closeIcon from "../../assets/close-icon.png";
+import tickIcon from "../../__assets/tick-icon.png";
+import closeIcon from "../../__assets/close-icon.png";
 import "cropperjs/dist/cropper.css";
 
-import "./Avatar.scss";
+import "./index.scss";
 
 const Avatar = ({
   onChange,
@@ -39,6 +39,7 @@ const Avatar = ({
       >
         {!avatar ? (
           <img
+            alt="avatar"
             src={isCroppedImage ? croppedImage : placeholderImage}
             className="avatar-container__image"
           />
@@ -53,6 +54,7 @@ const Avatar = ({
         ) : null}
         {isCroppedImage && (
           <img
+            alt="cropped-avatar"
             src={isCroppedImage ? croppedImage : placeholderImage}
             className="avatar-container__image"
           />
@@ -63,11 +65,16 @@ const Avatar = ({
         {avatar && !isCroppedImage ? (
           <div className="crop-container__group">
             <img
+              alt="confirm"
               onClick={onSetCroppedImage}
               className="crop-container__tick"
               src={tickIcon}
             />
-            <img className="crop-container__close" src={closeIcon} />
+            <img
+              alt="cancel"
+              className="crop-container__close"
+              src={closeIcon}
+            />
           </div>
         ) : null}
       </div>

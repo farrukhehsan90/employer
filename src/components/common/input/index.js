@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import "./Input.scss";
+import React from "react";
+import "./index.scss";
 
 const Input = ({ placeholder, type, name, value, onChange, errors }) => {
   return (

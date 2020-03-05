@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import "./RadioInput.scss";
+import "./index.scss";
 
 const DateInput = ({ placeholder, type, id, onChange, name }) => {
   const randomId = `radio-input${Math.round(Math.random * 1000)}`;

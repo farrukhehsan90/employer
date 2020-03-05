@@ -1,25 +1,17 @@
-import React, { useState, useRef, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import backButton from "../../assets/back-button.svg";
+import backButton from "../../__assets/back-button.svg";
 
-import Input from "../common/input/Input";
-import { BACK, DONE } from "../../redux/actions/types";
-import FileInput from "../common/file-input/FileInput";
-import DateInput from "../common/date-input/DateInput";
-import RadioInput from "../common/radio-input/RadioInput";
-import Avatar from "../avatar/Avatar";
+import { BACK, DONE } from "../../__redux/actions/types";
+import FileInput from "../common/file-input";
+import DateInput from "../common/date-input";
+import RadioInput from "../common/radio-input";
+import Avatar from "../avatar";
 
-import csv from "../../assets/csv-format.png";
-import doc from "../../assets/doc-format.png";
-import image from "../../assets/image-format.png";
-import pdf from "../../assets/pdf-format.png";
-
-import "./Step2.scss";
-import File from "../common/file/File";
-import { resolve } from "dns";
-import { reject } from "q";
-import Modal from "../common/modal/Modal";
-import Done from "../done/Done";
+import "./index.scss";
+import File from "../common/file";
+import Modal from "../common/modal";
+import Done from "../done";
 
 const Step2 = () => {
   const [avatar, setAvatar] = useState("");
@@ -108,6 +100,7 @@ const Step2 = () => {
 
           <div className="main-container__header">
             <img
+              alt="back-button"
               onClick={() =>
                 dispatch({
                   type: BACK,
