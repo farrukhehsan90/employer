@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onChangeForm } from "../../__redux/actions/authActions";
-import {Spinner} from "../common/spinner";
-import {Input} from "../common/input";
-import {Step2} from "../step2";
+import { Spinner } from "../common/spinner";
+import { Input } from "../common/input";
+import { Step2 } from "../step2";
 
 import "./index.scss";
 import { BACK } from "../../__redux/actions/types";
@@ -11,16 +11,14 @@ import { BACK } from "../../__redux/actions/types";
 export const Form = () => {
   const { auth } = useSelector(state => state);
 
-  const initialState={
-    error:{}
-  }
+  const initialState = {
+    error: {}
+  };
 
-
-  
   const [state, setState] = useState(initialState);
-  
-  const {error}=state;
-  
+
+  const { error } = state;
+
   const dispatch = useDispatch();
 
   const { loading, atStep2, userName, firstName, lastName } = auth;
@@ -28,29 +26,26 @@ export const Form = () => {
   const onClickNext = e => {
     e.preventDefault();
 
-    setState({...state,error:{}});
+    setState({ ...state, error: {} });
 
     const errors = {};
 
-    switch(""){
-
+    switch ("") {
       case firstName:
         errors.firstName = "Please enter a username";
-        setState({...state,error:errors});
+        setState({ ...state, error: errors });
         return;
-        
+
       case lastName:
-            errors.lastName = "Please enter a username";
-            setState({...state,error:errors});
-            return;
-      
+        errors.lastName = "Please enter a username";
+        setState({ ...state, error: errors });
+        return;
+
       case userName:
-            errors.userName = "Please enter a username";
-            setState({...state,error:errors});
-            return;
-
+        errors.userName = "Please enter a username";
+        setState({ ...state, error: errors });
+        return;
     }
-
 
     return dispatch({
       type: BACK,
@@ -89,27 +84,32 @@ export const Form = () => {
               noValidate
               onSubmit={onClickNext}
             >
-              <Input
-                errors={error}
-                name="userName"
-                value={userName}
-                onChange={onChange}
-                placeholder="Choose a username"
-              />
-              <Input
-                errors={error}
-                name="firstName"
-                value={firstName}
-                onChange={onChange}
-                placeholder="Enter First Name"
-              />
-              <Input
-                errors={error}
-                name="lastName"
-                value={lastName}
-                onChange={onChange}
-                placeholder="Enter Last Name"
-              />
+              {[
+                {
+                  name: "userName",
+                  value: userName,
+                  placeholder: "Choose a username"
+                },
+                {
+                  name: "firstName",
+                  value: firstName,
+                  placeholder: "Enter first name"
+                },
+                {
+                  name: "userName",
+                  value: userName,
+                  placeholder: "Enter last name"
+                }
+              ].map(({ name, value, placeholder }) => (
+                <Input
+                  errors={error}
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  placeholder={placeholder}
+                />
+              ))}
+
               <button
                 onClick={onClickNext}
                 className="form-page-container__card--next-button"
@@ -144,12 +144,9 @@ export const Form = () => {
   );
 
   return (
-      <div className="form-page-container">
-        {renderCard()}
-        {renderLanding()}
-      </div>
-   
+    <div className="form-page-container">
+      {renderCard()}
+      {renderLanding()}
+    </div>
   );
 };
-
-
