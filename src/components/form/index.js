@@ -1,14 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onChangeForm } from "../../__redux/actions/authActions";
-import Spinner from "../common/spinner";
-import Input from "../common/input";
-import Step2 from "../step2";
+import {Spinner} from "../common/spinner";
+import {Input} from "../common/input";
+import {Step2} from "../step2";
 
 import "./index.scss";
 import { BACK } from "../../__redux/actions/types";
 
-const Form = () => {
+export const Form = () => {
   const { auth } = useSelector(state => state);
 
   const initialState={
@@ -149,4 +149,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+

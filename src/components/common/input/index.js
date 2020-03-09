@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 
-const Input = ({ placeholder, type, name, value, onChange, errors }) => {
+export const Input = ({ placeholder, type, name, value, onChange, errors }) => {
   return (
     <div className="main-input-container">
       <input
@@ -17,4 +17,4 @@ const Input = ({ placeholder, type, name, value, onChange, errors }) => {
   );
 };
 
-export default Input;
+

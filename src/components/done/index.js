@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 
-const Done = () => {
+export const Done = () => {
   const renderBody = () => (
     <div className="done-container">
       <div className="done__main-text">You've done it!</div>
@@ -17,4 +17,3 @@ const Done = () => {
   return (renderBody());
 };
 
-export default Done;

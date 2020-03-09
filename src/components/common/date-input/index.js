@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import "./index.scss";
 
-const DateInput = ({ placeholder}) => {
+export const DateInput = ({ placeholder}) => {
 
   return (
     <Fragment>
@@ -10,4 +10,4 @@ const DateInput = ({ placeholder}) => {
   );
 };
 
-export default DateInput;
+

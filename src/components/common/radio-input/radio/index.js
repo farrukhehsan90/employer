@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-const Radio = ({htmlFor,text,placeholder,style,name,randomId}) => {
+export const Radio = ({htmlFor,text,placeholder,style,name,randomId}) => {
     return (
         <Fragment>
              <label htmlFor={htmlFor}>{text}</label>
@@ -14,5 +14,3 @@ const Radio = ({htmlFor,text,placeholder,style,name,randomId}) => {
         </Fragment>
     );
 }
-
-export default Radio;

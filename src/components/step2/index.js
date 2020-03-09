@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import backButton from "../../__assets/back-button.svg";
 
 import { BACK, DONE } from "../../__redux/actions/types";
-import FileInput from "../common/file-input";
-import DateInput from "../common/date-input";
-import RadioInput from "../common/radio-input";
-import Avatar from "../avatar";
+import {FileInput} from "../common/file-input";
+import {DateInput} from "../common/date-input";
+import {RadioInput} from "../common/radio-input";
+import {Avatar} from "../avatar";
 
 import "./index.scss";
-import File from "../common/file";
-import Modal from "../common/modal";
-import Done from "../done";
+import {File} from "../common/file";
+import {Modal} from "../common/modal";
+import {Done} from "../done";
 
-const Step2 = () => {
+export const Step2 = () => {
   const initialState = {
     avatar: "",
     show: false,
@@ -172,4 +172,4 @@ const Step2 = () => {
   return renderStep2();
 };
 
-export default Step2;
+

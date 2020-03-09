@@ -6,7 +6,7 @@ const initialState = {
   isAuthenticated: false
 };
 
-const formReducer = (state = initialState, action) => {
+export const formReducer = (state = initialState, action) => {
   switch (action.types) {
     case SAVE_USER_DETAILS:
       return state;
@@ -16,4 +16,3 @@ const formReducer = (state = initialState, action) => {
   }
 };
 
-export default formReducer;

@@ -13,7 +13,7 @@ const initialState = {
   doneWithStep2: false
 };
 
-const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -50,4 +50,4 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export default authReducer;
+

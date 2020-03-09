@@ -2,9 +2,9 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import store from "./__redux/store";
-import Form from "./components/form";
+import {Form} from "./components/form";
 
-function App() {
+export const App=()=> {
 
   const renderRoutes=()=> <Router>
   <Route exact path="/" component={Form} />
@@ -18,4 +18,3 @@ function App() {
   );
 }
 
-export default App;

@@ -5,7 +5,7 @@ import pdf from "../../../__assets/pdf-format.png";
 
 import "./index.scss";
 
-const File = ({ type, file, onChange }) => {
+export const File = ({ type, file, onChange }) => {
 
 
   const initialState={
@@ -66,4 +66,3 @@ const File = ({ type, file, onChange }) => {
   return renderFileContainer();
 };
 
-export default File;

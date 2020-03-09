@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import "./index.scss";
 
-const FileInput = ({ placeholder, type, id, onChange }) => {
+export const FileInput = ({ placeholder, type, id, onChange }) => {
   let upload = null;
 
   return (
@@ -22,4 +22,3 @@ const FileInput = ({ placeholder, type, id, onChange }) => {
   );
 };
 
-export default FileInput;

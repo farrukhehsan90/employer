@@ -3,7 +3,7 @@ import spinner from "../../../__assets/spinner.gif";
 
 import "./index.scss";
 
-const Spinner = () => {
+export const Spinner = () => {
   return (
     <div className="spinner-container">
       <img
@@ -15,4 +15,4 @@ const Spinner = () => {
   );
 };
 
-export default Spinner;
+

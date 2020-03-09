@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "./index.scss";
 import Button from "./button";
 
-const Modal = ({
+export const Modal = ({
   show,
   children,
   text,
@@ -42,4 +42,3 @@ const Modal = ({
   return renderModalContainer();
 };
 
-export default Modal;

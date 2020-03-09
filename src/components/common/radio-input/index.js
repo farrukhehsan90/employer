@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import "./index.scss";
-import Radio from "./radio";
+import {Radio} from "./radio";
 
-const DateInput = ({ placeholder, type, id, onChange, name }) => {
+export const RadioInput = ({ placeholder, type, id, onChange, name }) => {
   const randomId = `radio-input${Math.round(Math.random * 1000)}`;
 
 
@@ -22,4 +22,3 @@ const DateInput = ({ placeholder, type, id, onChange, name }) => {
   );
 };
 
-export default DateInput;

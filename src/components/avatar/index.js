@@ -7,7 +7,7 @@ import "cropperjs/dist/cropper.css";
 
 import "./index.scss";
 
-const Avatar = ({
+export const Avatar = ({
   onChange,
   avatar,
   onCrop,
@@ -91,4 +91,4 @@ const Avatar = ({
   );
 };
 
-export default Avatar;
+

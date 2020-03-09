@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 
-const Button = ({ style, color, textColor, buttonText, onClick }) => {
+export const Button = ({ style, color, textColor, buttonText, onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -13,4 +13,4 @@ const Button = ({ style, color, textColor, buttonText, onClick }) => {
   );
 };
 
-export default Button;
+
