@@ -9,7 +9,7 @@ import "./index.scss";
 import { BACK } from "../../__redux/actions/types";
 
 export const Form = () => {
-  const { auth } = useSelector(state => state);
+  const auth = useSelector(state => state.auth);
 
   const initialState = {
     error: {}

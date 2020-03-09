@@ -34,7 +34,7 @@ export const Step2 = () => {
     isCroppedImage
   } = state;
 
-  const { auth } = useSelector(state => state);
+  const auth  = useSelector(state => state.auth);
 
   const { doneWithStep2 } = auth;
 
