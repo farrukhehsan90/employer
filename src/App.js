@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import store from "./__redux/store";
+import {store} from "./__redux/store";
 import {Form} from "./components/form";
 
 export const App=()=> {

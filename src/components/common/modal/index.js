@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "./index.scss";
-import Button from "./button";
+import {Button} from "./button";
 
 export const Modal = ({
   show,

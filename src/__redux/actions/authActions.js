@@ -1,5 +1,5 @@
 import { LOADING, SIGNUP, SAVE_USER_DETAILS } from "./types";
-import store from "../store";
+import {store} from "../store";
 
 export const login = () => {};
 
