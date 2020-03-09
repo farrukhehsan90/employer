@@ -38,20 +38,20 @@ const File = ({ type, file, onChange }) => {
     }
   };
 
-  return (
-    <div className="file-component-container">
-      <img
-        alt="icon"
-        src={fileImage}
-        className="file-component-container__image"
-      />
-      <input
-        className="file-component-container__text"
-        type="text"
-        onChange={e => onChange(e, file)}
-      />
-    </div>
-  );
+  const renderFileContainer=()=> <div className="file-component-container">
+  <img
+    alt="icon"
+    src={fileImage}
+    className="file-component-container__image"
+  />
+  <input
+    className="file-component-container__text"
+    type="text"
+    onChange={e => onChange(e, file)}
+  />
+</div>
+
+  return renderFileContainer();
 };
 
 export default File;

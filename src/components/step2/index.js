@@ -73,77 +73,88 @@ const Step2 = () => {
     });
   };
 
-  return (
-    <div className="main-container">
-      {doneWithStep2 ? (
-        <Done />
-      ) : (
-        <Fragment>
-          <Modal
-            onClickUpload={() => setShowModal(false)}
-            onClickCancel={() => setShowModal(false)}
-            show={show}
-            text="Add any comments, eh?"
-            actionBtnText="Upload"
-            cancelBtnText="Cancel"
-          >
-            {files &&
-              Object.keys(files).map(file => (
-                <File
-                  type={files[file].type}
-                  file={files[file]}
-                  onChange={onChange}
-                  key={file}
-                />
-              ))}
-          </Modal>
+  const renderModal = () => (
+    <Modal
+      onClickUpload={() => setShowModal(false)}
+      onClickCancel={() => setShowModal(false)}
+      show={show}
+      text="Add any comments, eh?"
+      actionBtnText="Upload"
+      cancelBtnText="Cancel"
+    >
+      {files &&
+        Object.keys(files).map(file => (
+          <File
+            type={files[file].type}
+            file={files[file]}
+            onChange={onChange}
+            key={file}
+          />
+        ))}
+    </Modal>
+  );
 
-          <div className="main-container__header">
-            <img
-              alt="back-button"
-              onClick={() =>
-                dispatch({
-                  type: BACK,
-                  payload: false
-                })
-              }
-              src={backButton}
-              className="main-container__header--back-button"
-            />
-            <div className="main-container__header--title">
-              <h2>Almost there!</h2>
-            </div>
-          </div>
-          <div className="form-container">
-            <Avatar
-              setIsCroppedImage={setIsCroppedImage}
-              isCroppedImage={isCroppedImage}
-              croppedImage={updatedCroppedImage}
-              onSetCroppedImage={onSetCroppedImage}
-              onCrop={onCropAvatar}
-              avatar={avatar}
-              onChange={onChangeAvatar}
-            />
-            <div className="form-container__forms">
-              <DateInput placeholder="Enter your birth date" />
-              <RadioInput placeholder="Select your gender" />
-              <FileInput
-                onChange={onUploadResume}
-                type="file"
-                placeholder="Upload Resume"
-              />
-              <button
-                onClick={onClickSubmit}
-                className="form-container__forms--submit-button"
-              >
-                Alright, Let me in!
-              </button>
-            </div>
-          </div>
-        </Fragment>
-      )}
+  const renderFormBody = () => (
+    <div className="form-container">
+      <Avatar
+        setIsCroppedImage={setIsCroppedImage}
+        isCroppedImage={isCroppedImage}
+        croppedImage={updatedCroppedImage}
+        onSetCroppedImage={onSetCroppedImage}
+        onCrop={onCropAvatar}
+        avatar={avatar}
+        onChange={onChangeAvatar}
+      />
+      <div className="form-container__forms">
+        <DateInput placeholder="Enter your birth date" />
+        <RadioInput placeholder="Select your gender" />
+        <FileInput
+          onChange={onUploadResume}
+          type="file"
+          placeholder="Upload Resume"
+        />
+        <button
+          onClick={onClickSubmit}
+          className="form-container__forms--submit-button"
+        >
+          Alright, Let me in!
+        </button>
+      </div>
     </div>
   );
+
+  const renderFormHeader = () => (
+    <div className="main-container__header">
+      <img
+        alt="back-button"
+        onClick={() =>
+          dispatch({
+            type: BACK,
+            payload: false
+          })
+        }
+        src={backButton}
+        className="main-container__header--back-button"
+      />
+      <div className="main-container__header--title">
+        <h2>Almost there!</h2>
+      </div>
+    </div>
+  );
+
+  const renderBody = () => (
+    <Fragment>
+      {renderModal()}
+      {renderFormHeader()}
+      {renderFormBody()}
+    </Fragment>
+  );
+
+  const renderStep2=()=>  <div className="main-container">
+  {doneWithStep2 ? <Done /> : renderBody()}
+</div>
+
+  return renderStep2();
 };
 
 export default Step2;

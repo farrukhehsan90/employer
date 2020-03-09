@@ -5,11 +5,15 @@ import store from "./__redux/store";
 import Form from "./components/form";
 
 function App() {
+
+  const renderRoutes=()=> <Router>
+  <Route exact path="/" component={Form} />
+</Router>
+
+
   return (
     <Provider store={store}>
-      <Router>
-        <Route exact path="/" component={Form} />
-      </Router>
+     {renderRoutes()}
     </Provider>
   );
 }

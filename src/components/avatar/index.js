@@ -20,64 +20,72 @@ const Avatar = ({
 
   let uploadAvatar;
 
+  const renderCropContainer = () => (
+    <div className="crop-container">
+      {avatar && !isCroppedImage ? (
+        <div className="crop-container__group">
+          <img
+            alt="confirm"
+            onClick={onSetCroppedImage}
+            className="crop-container__tick"
+            src={tickIcon}
+          />
+          <img alt="cancel" className="crop-container__close" src={closeIcon} />
+        </div>
+      ) : null}
+    </div>
+  );
+
+  const renderImageContainer = () => (
+    <div
+      onClick={() => {
+        setIsCroppedImage(false);
+        uploadAvatar.click();
+      }}
+      className="avatar-container"
+    >
+      {!avatar ? (
+        <img
+          alt="avatar"
+          src={isCroppedImage ? croppedImage : placeholderImage}
+          className="avatar-container__image"
+        />
+      ) : !isCroppedImage ? (
+        <Cropper
+          ref={cropperRef}
+          src={avatar}
+          className="avatar-container__crop"
+          guides
+          crop={() => onCrop(cropperRef)}
+        />
+      ) : null}
+      {isCroppedImage && (
+        <img
+          alt="cropped-avatar"
+          src={isCroppedImage ? croppedImage : placeholderImage}
+          className="avatar-container__image"
+        />
+      )}
+      <span className="avatar-container__text">Click to edit</span>
+    </div>
+  );
+
+  const renderInputContainer = () => (
+    <input
+      multiple={false}
+      accept="image/*"
+      ref={ref => (uploadAvatar = ref)}
+      type="file"
+      onChange={onChange}
+      className="avatar-input-file"
+    />
+  );
+
   return (
     <Fragment>
-      <input
-        multiple={false}
-        accept="image/*"
-        ref={ref => (uploadAvatar = ref)}
-        type="file"
-        onChange={onChange}
-        className="avatar-input-file"
-      />
-      <div
-        onClick={() => {
-          setIsCroppedImage(false);
-          uploadAvatar.click();
-        }}
-        className="avatar-container"
-      >
-        {!avatar ? (
-          <img
-            alt="avatar"
-            src={isCroppedImage ? croppedImage : placeholderImage}
-            className="avatar-container__image"
-          />
-        ) : !isCroppedImage ? (
-          <Cropper
-            ref={cropperRef}
-            src={avatar}
-            className="avatar-container__crop"
-            guides
-            crop={() => onCrop(cropperRef)}
-          />
-        ) : null}
-        {isCroppedImage && (
-          <img
-            alt="cropped-avatar"
-            src={isCroppedImage ? croppedImage : placeholderImage}
-            className="avatar-container__image"
-          />
-        )}
-        <span className="avatar-container__text">Click to edit</span>
-      </div>
-      <div className="crop-container">
-        {avatar && !isCroppedImage ? (
-          <div className="crop-container__group">
-            <img
-              alt="confirm"
-              onClick={onSetCroppedImage}
-              className="crop-container__tick"
-              src={tickIcon}
-            />
-            <img
-              alt="cancel"
-              className="crop-container__close"
-              src={closeIcon}
-            />
-          </div>
-        ) : null}
-      </div>
+      {renderInputContainer()}
+      {renderImageContainer()}
+      {renderCropContainer()}
     </Fragment>
   );
 };

@@ -1,34 +1,24 @@
 import React, { Fragment } from "react";
 import "./index.scss";
+import Radio from "./radio";
 
 const DateInput = ({ placeholder, type, id, onChange, name }) => {
   const randomId = `radio-input${Math.round(Math.random * 1000)}`;
 
-  return (
-    <Fragment>
-      <div className="radio-container">
-        <span className="radio-container--text">{placeholder}</span>
 
-        <div className="radio-container__radio">
-          <label htmlFor="Boy">Boy</label>
-          <input
-            name={name ? name : randomId}
-            id={"Boy"}
-            className="radio-container__single-radio"
-            type="radio"
-            placeholder={placeholder}
-          />
-          <label htmlFor="Girl">Girl</label>
-          <input
-            name={name ? name : randomId}
-            id={"Girl"}
-            className="radio-container__single-radio"
-            type="radio"
-            placeholder={placeholder}
-          />
-        </div>
+  const renderRadioButtons=()=>
+     <div className="radio-container__radio">
+     <Radio style="radio-container__single-radio" htmlFor="Girl" text="Girl" placeholder={placeholder}/>
+     <Radio style="radio-container__single-radio" htmlFor="Boy" text="Boy" placeholder={placeholder}/>
+     </div>
+
+
+
+  return (
+      <div className="radio-container">
+        <span className="radio-container--text">{placeholder}</span>       
+          {renderRadioButtons()}
       </div>
-    </Fragment>
   );
 };
 

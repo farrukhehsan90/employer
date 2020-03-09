@@ -60,78 +60,84 @@ const Form = () => {
     return;
   };
 
-  return (
-    <Fragment>
-      <div className="form-page-container">
-        <div className="form-page-container__card ">
-          <div className="form-page-container__card--container">
-            {loading ? (
-              <Spinner />
-            ) : atStep2 ? (
-              <Step2 />
-            ) : (
-              <Fragment>
-                <div className="form-page-container__card--title">
-                  <h1 className="form-page-container__sign-up">Sign Up</h1>
-                </div>
+  const renderCard = () => (
+    <div className="form-page-container__card ">
+      <div className="form-page-container__card--container">
+        {loading ? (
+          <Spinner />
+        ) : atStep2 ? (
+          <Step2 />
+        ) : (
+          <Fragment>
+            <div className="form-page-container__card--title">
+              <h1 className="form-page-container__sign-up">Sign Up</h1>
+            </div>
 
-                <form
-                  className="form-page-container__form"
-                  noValidate
-                  onSubmit={onClickNext}
-                >
-                  <Input
-                    errors={error}
-                    name="userName"
-                    value={userName}
-                    onChange={onChange}
-                    placeholder="Choose a username"
-                  />
-                  <Input
-                    errors={error}
-                    name="firstName"
-                    value={firstName}
-                    onChange={onChange}
-                    placeholder="Enter First Name"
-                  />
-                  <Input
-                    errors={error}
-                    name="lastName"
-                    value={lastName}
-                    onChange={onChange}
-                    placeholder="Enter Last Name"
-                  />
-                  <button
-                    onClick={onClickNext}
-                    className="form-page-container__card--next-button"
-                  >
-                    Next
-                  </button>
-                </form>
-              </Fragment>
-            )}
-          </div>
-          <h5 className="form-page-container__card--existing-account">
-            Already have an account?
-            <span className="form-page-container__card--existing-account-subtext">
-              {" "}
-              Login
-            </span>
-          </h5>
-        </div>
-
-        <div className="form-page-container__landing">
-          <h1 className="form-page-container__landing--title">
-            Welcome to Employer
-          </h1>
-          <img
-            alt="main"
-            src="https://media.giphy.com/media/vuOw3fiAdjVNYMBjoh/giphy.gif"
-            className="form-page-container__landing--image"
-          />
-        </div>
+            <form
+              className="form-page-container__form"
+              noValidate
+              onSubmit={onClickNext}
+            >
+              <Input
+                errors={error}
+                name="userName"
+                value={userName}
+                onChange={onChange}
+                placeholder="Choose a username"
+              />
+              <Input
+                errors={error}
+                name="firstName"
+                value={firstName}
+                onChange={onChange}
+                placeholder="Enter First Name"
+              />
+              <Input
+                errors={error}
+                name="lastName"
+                value={lastName}
+                onChange={onChange}
+                placeholder="Enter Last Name"
+              />
+              <button
+                onClick={onClickNext}
+                className="form-page-container__card--next-button"
+              >
+                Next
+              </button>
+            </form>
+          </Fragment>
+        )}
       </div>
-    </Fragment>
+      <h5 className="form-page-container__card--existing-account">
+        Already have an account?
+        <span className="form-page-container__card--existing-account-subtext">
+          {" "}
+          Login
+        </span>
+      </h5>
+    </div>
+  );
+
+  const renderLanding = () => (
+    <div className="form-page-container__landing">
+      <h1 className="form-page-container__landing--title">
+        Welcome to Employer
+      </h1>
+      <img
+        alt="main"
+        src="https://media.giphy.com/media/vuOw3fiAdjVNYMBjoh/giphy.gif"
+        className="form-page-container__landing--image"
+      />
+    </div>
+  );
+
+  return (
+      <div className="form-page-container">
+        {renderCard()}
+        {renderLanding()}
+      </div>
+   
   );
 };
 
