@@ -11,8 +11,16 @@ import { BACK } from "../../__redux/actions/types";
 const Form = () => {
   const { auth } = useSelector(state => state);
 
-  const [error, setError] = useState({});
+  const initialState={
+    error:{}
+  }
 
+
+  
+  const [state, setState] = useState(initialState);
+  
+  const {error}=state;
+  
   const dispatch = useDispatch();
 
   const { loading, atStep2, userName, firstName, lastName } = auth;
@@ -20,24 +28,24 @@ const Form = () => {
   const onClickNext = e => {
     e.preventDefault();
 
-    setError({});
+    setState({...state,error:{}});
 
     const errors = {};
 
     if (!userName) {
       errors.userName = "Please enter a username";
-      setError(errors);
+      setState({...state,error:errors});
       return;
     }
     if (!firstName) {
       errors.firstName = "Please enter your first name";
-      setError(errors);
+      setState({...state,error:errors});
       return;
     }
 
     if (!lastName) {
       errors.lastName = "Please enter your last name";
-      setError(errors);
+      setState({...state,error:errors});
       return;
     }
 

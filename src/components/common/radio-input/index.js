@@ -8,8 +8,8 @@ const DateInput = ({ placeholder, type, id, onChange, name }) => {
 
   const renderRadioButtons=()=>
      <div className="radio-container__radio">
-     <Radio style="radio-container__single-radio" htmlFor="Girl" text="Girl" placeholder={placeholder}/>
-     <Radio style="radio-container__single-radio" htmlFor="Boy" text="Boy" placeholder={placeholder}/>
+     <Radio name="Girl" randomId={Math.round(Math.random()*1000)} style="radio-container__single-radio" htmlFor="Girl" text="Girl" placeholder={placeholder}/>
+     <Radio name="Boy" randomId={Math.round(Math.random()*1000)} style="radio-container__single-radio" htmlFor="Boy" text="Boy" placeholder={placeholder}/>
      </div>
 
 

@@ -6,34 +6,46 @@ import pdf from "../../../__assets/pdf-format.png";
 import "./index.scss";
 
 const File = ({ type, file, onChange }) => {
-  const [fileImage, setFileImage] = useState("");
+
+
+  const initialState={
+    fileImage:""
+  }
+
+  const {fileImage}=state;
+
+  const [state,setState]=useState(initialState);
+
 
   useEffect(() => {
     formatFile();
-  }, [fileImage]);
+  }, [state.fileImage]);
 
   const formatFile = () => {
+
+    const {fileImage}=state;
+
     const fileType = type && type.toString();
 
     if (fileType.includes("csv")) {
-      setFileImage(csv);
+      setState({...state,fileImage:csv});
       return fileImage;
     }
     if (fileType.includes("doc")) {
-      setFileImage(doc);
+      setState({...state,fileImage:doc});
       return fileImage;
     }
     if (fileType.includes("image")) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setFileImage(reader.result);
+        setState({...state,fileImage:reader.result});
 
         return fileImage;
       };
     }
     if (fileType.includes("pdf")) {
-      setFileImage(pdf);
+      setState({...state,fileImage:pdf});
       return fileImage;
     }
   };

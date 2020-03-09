@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-const Radio = ({htmlFor,text,placeholder,style}) => {
+const Radio = ({htmlFor,text,placeholder,style,name,randomId}) => {
     return (
         <Fragment>
              <label htmlFor={htmlFor}>{text}</label>

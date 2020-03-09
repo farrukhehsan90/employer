@@ -14,17 +14,29 @@ import Modal from "../common/modal";
 import Done from "../done";
 
 const Step2 = () => {
-  const [avatar, setAvatar] = useState("");
-  const [show, setShowModal] = useState(false);
-  const [files, setFiles] = useState({});
+  const initialState = {
+    avatar: "",
+    show: false,
+    files: {},
+    croppedImage: "",
+    updatedCroppedImage: "",
+    isCroppedImage: ""
+  };
+
+  const [state, setState] = useState(initialState);
+
+  const {
+    avatar,
+    show,
+    files,
+    croppedImage,
+    updatedCroppedImage,
+    isCroppedImage
+  } = state;
 
   const { auth } = useSelector(state => state);
 
   const { doneWithStep2 } = auth;
-
-  const [croppedImage, setCroppedImage] = useState("");
-  const [updatedCroppedImage, setUpdatedCroppedImage] = useState("");
-  const [isCroppedImage, setIsCroppedImage] = useState("");
 
   const dispatch = useDispatch();
 
@@ -36,23 +48,23 @@ const Step2 = () => {
     if (uploadedFiles.length > 0) {
       Array.isArray(uploadedFiles);
 
-      setFiles(uploadedFiles);
+      setState({ ...state, files: uploadedFiles });
     }
 
     setTimeout(() => {
-      setShowModal(true);
+      setState({ ...state, show: true });
     }, 1500);
   };
 
   const onCropAvatar = cropperRef => {
     const croppedImage = cropperRef.current.getCroppedCanvas().toDataURL();
 
-    setCroppedImage(croppedImage);
+    setState({ ...state, croppedImage });
   };
 
   const onSetCroppedImage = () => {
-    setUpdatedCroppedImage(croppedImage);
-    setIsCroppedImage(true);
+    setState({ ...state, updatedCroppedImage: croppedImage });
+    setState({ ...state, isCroppedImage: true });
   };
   const onChangeAvatar = e => {
     const { files } = e.target;
@@ -62,7 +74,7 @@ const Step2 = () => {
 
       reader.readAsDataURL(files[0]);
       reader.onloadend = () => {
-        setAvatar(reader.result);
+        setState({ ...state, avatar: reader.result });
       };
     }
   };
@@ -75,8 +87,8 @@ const Step2 = () => {
 
   const renderModal = () => (
     <Modal
-      onClickUpload={() => setShowModal(false)}
-      onClickCancel={() => setShowModal(false)}
+      onClickUpload={() => setState({ ...state, show: false })}
+      onClickCancel={() => setState({ ...state, show: false })}
       show={show}
       text="Add any comments, eh?"
       actionBtnText="Upload"
@@ -97,7 +109,8 @@ const Step2 = () => {
   const renderFormBody = () => (
     <div className="form-container">
       <Avatar
-        setIsCroppedImage={setIsCroppedImage}
+        setIsCroppedImage={setState}
+        state={state}
         isCroppedImage={isCroppedImage}
         croppedImage={updatedCroppedImage}
         onSetCroppedImage={onSetCroppedImage}
@@ -150,9 +163,11 @@ const Step2 = () => {
     </Fragment>
   );
 
-  const renderStep2=()=>  <div className="main-container">
-  {doneWithStep2 ? <Done /> : renderBody()}
-</div>
+  const renderStep2 = () => (
+    <div className="main-container">
+      {doneWithStep2 ? <Done /> : renderBody()}
+    </div>
+  );
 
   return renderStep2();
 };

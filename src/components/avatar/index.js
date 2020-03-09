@@ -13,8 +13,9 @@ const Avatar = ({
   onCrop,
   croppedImage,
   isCroppedImage,
-  setIsCroppedImage,
-  onSetCroppedImage
+  setState,
+  onSetCroppedImage,
+  state
 }) => {
   const cropperRef = useRef(null);
 
@@ -39,7 +40,7 @@ const Avatar = ({
   const renderImageContainer = () => (
     <div
       onClick={() => {
-        setIsCroppedImage(false);
+        setState({...state,isCroppedImage:false});
         uploadAvatar.click();
       }}
       className="avatar-container"
