@@ -32,22 +32,25 @@ export const Form = () => {
 
     const errors = {};
 
-    if (!userName) {
-      errors.userName = "Please enter a username";
-      setState({...state,error:errors});
-      return;
-    }
-    if (!firstName) {
-      errors.firstName = "Please enter your first name";
-      setState({...state,error:errors});
-      return;
+    switch(""){
+
+      case firstName:
+        errors.firstName = "Please enter a username";
+        setState({...state,error:errors});
+        return;
+        
+      case lastName:
+            errors.lastName = "Please enter a username";
+            setState({...state,error:errors});
+            return;
+      
+      case userName:
+            errors.userName = "Please enter a username";
+            setState({...state,error:errors});
+            return;
+
     }
 
-    if (!lastName) {
-      errors.lastName = "Please enter your last name";
-      setState({...state,error:errors});
-      return;
-    }
 
     return dispatch({
       type: BACK,
