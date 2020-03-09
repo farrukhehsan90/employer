@@ -21,6 +21,13 @@ export const Avatar = ({
 
   let uploadAvatar;
 
+  const onClickUpload=()=>{
+    
+      setState({...state,isCroppedImage:false});
+      uploadAvatar.click();
+      return;
+  }
+
   const renderCropContainer = () => (
     <div className="crop-container">
       {avatar && !isCroppedImage ? (
@@ -39,10 +46,7 @@ export const Avatar = ({
 
   const renderImageContainer = () => (
     <div
-      onClick={() => {
-        setState({...state,isCroppedImage:false});
-        uploadAvatar.click();
-      }}
+      onClick={onClickUpload}
       className="avatar-container"
     >
       {!avatar ? (
