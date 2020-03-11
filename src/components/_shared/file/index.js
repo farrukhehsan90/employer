@@ -4,6 +4,7 @@ import doc from "../../../__assets/doc-format.png";
 import pdf from "../../../__assets/pdf-format.png";
 
 import "./index.scss";
+import { Avatar } from "../avatar";
 
 export const File = ({ type, file, onChange }) => {
 
@@ -12,10 +13,10 @@ export const File = ({ type, file, onChange }) => {
     fileImage:""
   }
 
-  const {fileImage}=state;
-
+  
   const [state,setState]=useState(initialState);
-
+  
+  const {fileImage}=state;
 
   useEffect(() => {
     formatFile();
@@ -51,11 +52,13 @@ export const File = ({ type, file, onChange }) => {
   };
 
   const renderFileContainer=()=> <div className="file-component-container">
+  {/* {type && type.includes("image")?<Avatar/>: */}
   <img
     alt="icon"
     src={fileImage}
     className="file-component-container__image"
   />
+  {/* } */}
   <input
     className="file-component-container__text"
     type="text"

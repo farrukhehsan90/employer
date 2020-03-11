@@ -7,6 +7,7 @@ import { Step2 } from "../step2";
 
 import "./index.scss";
 import { BACK } from "../../__redux/actions/types";
+import { saveForm } from "../../__redux/actions/formActions";
 
 export const Form = () => {
   const auth = useSelector(state => state.auth);
@@ -31,26 +32,24 @@ export const Form = () => {
     const errors = {};
 
     switch ("") {
+      case userName:
+        errors.userName = "Please choose a username";
+      setState({ ...state, error: errors });
+      return;
+      
       case firstName:
-        errors.firstName = "Please enter a username";
+        errors.firstName = "Please enter first name";
         setState({ ...state, error: errors });
         return;
 
       case lastName:
-        errors.lastName = "Please enter a username";
+        errors.lastName = "Please enter last name";
         setState({ ...state, error: errors });
         return;
-
-      case userName:
-        errors.userName = "Please enter a username";
-        setState({ ...state, error: errors });
-        return;
+        
     }
 
-    return dispatch({
-      type: BACK,
-      payload: true
-    });
+    return saveForm(dispatch);
   };
 
   const onChange = (e, name) => {
@@ -96,8 +95,8 @@ export const Form = () => {
                   placeholder: "Enter first name"
                 },
                 {
-                  name: "userName",
-                  value: userName,
+                  name: "lastName",
+                  value: lastName,
                   placeholder: "Enter last name"
                 }
               ].map(({ name, value, placeholder }) => (

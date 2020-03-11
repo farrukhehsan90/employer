@@ -25,6 +25,8 @@ export const signup = (email, userDetails) => {
 };
 
 export const onChangeForm = value => {
+
+  
   return store.dispatch({
     type: SAVE_USER_DETAILS,
     payload: {

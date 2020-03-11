@@ -47,13 +47,12 @@ export const Step2 = () => {
 
     if (uploadedFiles.length > 0) {
       Array.isArray(uploadedFiles);
-
-      setState({ ...state, files: uploadedFiles });
+      console.log('uploadedFiles',uploadedFiles);
+     
+      setTimeout(() => {
+        setState({ ...state, show: true, files: uploadedFiles  });
+      }, 1500);
     }
-
-    setTimeout(() => {
-      setState({ ...state, show: true });
-    }, 1500);
   };
 
   const onCropAvatar = cropperRef => {
