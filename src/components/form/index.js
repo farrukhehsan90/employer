@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onChangeForm } from "../../__redux/actions/authActions";
-import { Spinner } from "../common/spinner";
-import { Input } from "../common/input";
+import { Spinner } from "../_shared/spinner";
+import { Input } from "../_shared/input";
 import { Step2 } from "../step2";
 
 import "./index.scss";

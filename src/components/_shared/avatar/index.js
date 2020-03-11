@@ -1,8 +1,8 @@
 import React, { Fragment, useRef } from "react";
-import placeholderImage from "../../__assets/avatar-icon.svg";
+import placeholderImage from "../../../__assets/avatar-icon.svg";
 import Cropper from "react-cropper";
-import tickIcon from "../../__assets/tick-icon.png";
-import closeIcon from "../../__assets/close-icon.png";
+import tickIcon from "../../../__assets/tick-icon.png";
+import closeIcon from "../../../__assets/close-icon.png";
 import "cropperjs/dist/cropper.css";
 
 import "./index.scss";

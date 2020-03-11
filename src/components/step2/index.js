@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import backButton from "../../__assets/back-button.svg";
 
 import { BACK, DONE } from "../../__redux/actions/types";
-import {FileInput} from "../common/file-input";
-import {DateInput} from "../common/date-input";
-import {RadioInput} from "../common/radio-input";
-import {Avatar} from "../avatar";
+import {FileInput} from "../_shared/file-input";
+import {DateInput} from "../_shared/date-input";
+import {RadioInput} from "../_shared/radio-input";
+import {Avatar} from '../_shared/avatar/index';
 
 import "./index.scss";
-import {File} from "../common/file";
-import {Modal} from "../common/modal";
+import {File} from "../_shared/file";
+import {Modal} from "../_shared/modal";
 import {Done} from "../done";
 
 export const Step2 = () => {
