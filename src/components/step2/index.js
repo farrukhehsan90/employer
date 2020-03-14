@@ -61,18 +61,21 @@ export const Step2 = () => {
 
     if (uploadedFiles.length > 0) {
 
+      const newUpdatedFiles=Object.keys(uploadedFiles).map(file=>({image:"",file:uploadedFiles[file]}))
 
       setTimeout(() => {
-        setState({ ...state, show: true, files: uploadedFiles });
+        setState({ ...state, show: true, files: newUpdatedFiles });
       }, 1500);
     }
   };
 
-  const onCropAvatar = name => {
-    const { currentRef: cropperRef } = state;
-    const croppedImage = cropperRef.current.getCroppedCanvas().toDataURL();
+  const onCropAvatar = ref => {
+    // const { currentRef: cropperRef } = state;
+    const croppedImage = ref.current.getCroppedCanvas().toDataURL();
 
-    setState({ ...state, croppedImage });
+    console.log('ref',ref);
+
+    setState({ ...state, croppedImage,showAvatarPopup:false });
   };
 
   const onSetCroppedImage = () => {
@@ -98,10 +101,7 @@ export const Step2 = () => {
     });
   };
 
-  // const setCurrentRef=(ref,name)=>{
 
-  //   setState(initialState);
-  // };
 
   const renderModal = () => (
     <Modal
@@ -119,14 +119,15 @@ export const Step2 = () => {
               setCropModalState={setState}
               showCropModal={showCropModal}
               step2State={state}
-              type={files[file].type}
-              file={files[file]}
+              type={files[file].file.type}
+              file={files[file].file}
               index={file}
               files={files}
               onCrop={onCrop}
               setCurrentRef={setState}
               onChange={onChange}
               key={file}
+              image={files[file].image}
               currentImage={currentImage}
             />
           );
@@ -142,40 +143,41 @@ export const Step2 = () => {
 
 
 
-    fetch(base64)
-      .then(res => res.arrayBuffer())
-      .then(blob => {
-        const file = new File([blob], currentFile, { type: "image/png" });
+    // fetch(base64)
+    //   .then(res => res.arrayBuffer())
+    //   .then(blob => {
+    //     const file = new File([blob], currentFile, { type: "image/png" });
+    //   });
 
-        const filteredFileIndex = Object.keys(files).findIndex(file => {
+        const filteredFileIndex = files.findIndex(file => {
           return (
-            files[file].name.trim().toString() === currentFile.toString().trim()
+            file.file.name.trim().toString() === currentFile.toString().trim()
           );
         });
 
-        const updatedFiles = Object.keys(files)
-          .filter(file => {
-            return (
-              files[file].name.trim().toString() !==
-              currentFile.toString().trim()
-            );
-          })
-          .map(file => files[file]);
+        const arrayClone=[
+          ...files
+        ];
+        const updatedItem=files[filteredFileIndex];
 
-        const newFiles = {
-          ...updatedFiles,
-          file
-        };
+        console.log('updatedArray',updatedItem);
 
+        updatedItem.image=base64;
 
+        // updatedArray[filteredFileIndex].image=base64;
+        
+        console.log('updatedArray',updatedItem);
 
+        arrayClone.splice(parseInt(filteredFileIndex),1,updatedItem);
 
+      
 
+        // const newFiles = {
+        //   ...updatedFiles,
+          // file
+        // };
 
-
-
-        setState({ ...state, files: newFiles, showCropModal: false });
-      });
+        setState({ ...state, files: arrayClone, showCropModal: false });
   };
 
   const renderFormBody = () => (
@@ -187,7 +189,7 @@ export const Step2 = () => {
         setCurrentRef={setState}
         showAvatarPopup={showAvatarPopup}
         isCroppedImage={isCroppedImage}
-        croppedImage={updatedCroppedImage}
+        croppedImage={croppedImage}
         onSetCroppedImage={onSetCroppedImage}
         onCrop={onCropAvatar}
         avatar={avatar}

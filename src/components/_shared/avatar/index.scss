@@ -50,3 +50,25 @@
     }
   }
 }
+
+.cropper-popup-container {
+  background-color: #fff;
+  padding: 1.5%;
+  border-radius: 20;
+  box-shadow: 5% 5% 10% black;
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  flex-direction: column;
+}
+
+.cropper-popup-container__buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 3%;
+}

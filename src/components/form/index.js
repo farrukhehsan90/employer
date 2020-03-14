@@ -69,7 +69,7 @@ export const Form = () => {
       <div className="form-page-container__card--container">
         {loading ? (
           <Spinner />
-        ) : !atStep2 ? (
+        ) : atStep2 ? (
           <Step2 />
         ) : (
           <Fragment>
