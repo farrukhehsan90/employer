@@ -12,18 +12,20 @@ const CropperPopup = ({
   file,
   onCrop,
   setState,
+  setCurrentRef,
   state
 }) => {
   return (
     <Fragment>
       <div
       className="modal-cropper-container__overlay"
-        style={!showCropModal && { display: "none" }}
+
+        style={!showCropModal?{ display: "none" }:{}}
       >
         &nbsp;
       </div>
       <div className="modal-cropper-container__main"
-        style={!showCropModal && { display: "none" }}
+        style={!showCropModal?{ display: "none" }:{}}
       >
         {
           <Cropper
@@ -44,7 +46,7 @@ const CropperPopup = ({
           <Button
             buttonText="Crop"
             onClick={() => {
-              setState({ ...state, currentRef: ref });
+              
               onCrop(file && file.name);
             }}
           />

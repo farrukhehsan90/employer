@@ -4,11 +4,14 @@ import doc from "../../../__assets/doc-format.png";
 import pdf from "../../../__assets/pdf-format.png";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-
+import {useDispatch} from 'react-redux';
 import "./index.scss";
 import { Avatar } from "../avatar";
 import { Button } from "../modal/button";
 import CropperPopup from "../cropper-popup";
+import { saveCurrentRef } from "../../../__redux/actions/formActions";
+import { SAVE_CROPPER_REF } from "../../../__redux/actions/types";
+import { store } from "../../../__redux/store";
 
 export const CustomFile = ({
   index,
@@ -29,6 +32,8 @@ export const CustomFile = ({
   };
 
   const ref=useRef(file.name);
+
+  const dispatch=useDispatch();
 
 
 
@@ -84,7 +89,7 @@ export const CustomFile = ({
           className="file-component-container__image"
         />
       }
-      <CropperPopup showCropModal={showCropModal} ref={ref} currentImage={currentImage} setCropModalState={setCropModalState} file={file} onCrop={onCrop} step2State={step2State}/>
+      {/* <CropperPopup showCropModal={showCropModal} ref={ref} currentImage={currentImage} setCropModalState={setCropModalState} file={file} onCrop={onCrop} step2State={step2State}/> */}
       <div
         style={{
           ...{
@@ -102,11 +107,66 @@ export const CustomFile = ({
       >
         &nbsp;
       </div>
+      <div
+        style={{
+          ...{
+            backgroundColor: "#f3f3f3",
+            boxShadow: ".5rem .5rem 1rem grey",
+            width: 400,
+            height: 450,
+            zIndex: 100,
+            borderRadius: 20,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)"
+          },
+          ...(!showCropModal && { display: "none" })
+        }}
+      >
+        {
+          <Cropper
+            ref={ref}
+            // minContainerHeight={400}
+            // minCanvasHeight={400}
+            // minCanvasWidth={400}
+            // minContainerWidth={400}
+            // zoomable
+            // zoomOnWheel
+            style={{width:400,height:400}}
+            src={currentImage}
+          />
+        }
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            paddingTop: "2%"
+          }}
+        >
+          <Button
+            buttonText="Crop"
+            onClick={() => {
+
+              onCrop(file.name);
+            }}
+          />
+          <Button
+            onClick={() =>
+              setCropModalState({ ...step2State, showCropModal: false })
+            }
+            buttonText="Cancel"
+          />
+        </div>
+      </div>
       {type && type.includes("image") && (
         <Button
           style={{ opacity: 1 }}
           onClick={() =>{
 
+            store.dispatch({type:SAVE_CROPPER_REF,payload:ref}); 
            return setCropModalState({ ...step2State, showCropModal: true,currentRef:ref,currentImage:fileImage,currentFile:file.name})
           }
           }

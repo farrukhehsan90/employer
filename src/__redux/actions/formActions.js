@@ -1,4 +1,4 @@
-import { SAVE_USER_DETAILS, LOADING, BACK } from "./types";
+import { SAVE_USER_DETAILS, LOADING, BACK, SAVE_CROPPER_REF } from "./types";
 
 export const saveForm = (dispatch) => {
   //SAVE FORM
@@ -12,6 +12,8 @@ export const saveForm = (dispatch) => {
   }, 3500);
 
 };
+
+export const saveCurrentRef=(ref)=>dispatch=>dispatch({type:SAVE_CROPPER_REF,payload:ref});
 
 export const setLoading = (loading) => ({
   type: LOADING,

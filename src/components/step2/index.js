@@ -43,10 +43,12 @@ export const Step2 = () => {
     showCropModal,
     currentImage,
     currentFile,
+    currentRef,
     showAvatarPopup
   } = state;
 
   const auth = useSelector(state => state.auth);
+  const form= useSelector(state => state.form);
 
   const { doneWithStep2 } = auth;
 
@@ -58,7 +60,7 @@ export const Step2 = () => {
     const { files: uploadedFiles } = e.target;
 
     if (uploadedFiles.length > 0) {
-      Array.isArray(uploadedFiles);
+
 
       setTimeout(() => {
         setState({ ...state, show: true, files: uploadedFiles });
@@ -133,9 +135,12 @@ export const Step2 = () => {
   );
 
   const onCrop = () => {
-    const { files, currentRef: ref } = state;
+    const { files, currentFile } = state;
 
-    const base64 = ref.current.getCroppedCanvas().toDataURL();
+
+    const base64 = currentRef.current.getCroppedCanvas().toDataURL();
+
+
 
     fetch(base64)
       .then(res => res.arrayBuffer())
@@ -159,8 +164,15 @@ export const Step2 = () => {
 
         const newFiles = {
           ...updatedFiles,
-          [filteredFileIndex]: file
+          file
         };
+
+
+
+
+
+
+
 
         setState({ ...state, files: newFiles, showCropModal: false });
       });
@@ -172,6 +184,7 @@ export const Step2 = () => {
         setIsCroppedImage={setState}
         state={state}
         setState={setState}
+        setCurrentRef={setState}
         showAvatarPopup={showAvatarPopup}
         isCroppedImage={isCroppedImage}
         croppedImage={updatedCroppedImage}
