@@ -11,9 +11,8 @@ export const Done = () => {
         src="https://media.giphy.com/media/5BZslN01evFcI/giphy.gif"
         className="done-image"
       />
-</div>
+    </div>
   );
 
-  return (renderBody());
+  return renderBody();
 };
-

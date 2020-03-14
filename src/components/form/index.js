@@ -34,9 +34,9 @@ export const Form = () => {
     switch ("") {
       case userName:
         errors.userName = "Please choose a username";
-      setState({ ...state, error: errors });
-      return;
-      
+        setState({ ...state, error: errors });
+        return;
+
       case firstName:
         errors.firstName = "Please enter first name";
         setState({ ...state, error: errors });
@@ -46,7 +46,6 @@ export const Form = () => {
         errors.lastName = "Please enter last name";
         setState({ ...state, error: errors });
         return;
-        
     }
 
     return saveForm(dispatch);
@@ -70,7 +69,7 @@ export const Form = () => {
       <div className="form-page-container__card--container">
         {loading ? (
           <Spinner />
-        ) : atStep2 ? (
+        ) : !atStep2 ? (
           <Step2 />
         ) : (
           <Fragment>

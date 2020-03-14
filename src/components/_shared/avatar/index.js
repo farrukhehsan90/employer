@@ -6,6 +6,7 @@ import closeIcon from "../../../__assets/close-icon.png";
 import "cropperjs/dist/cropper.css";
 
 import "./index.scss";
+import CropperPopup from "../cropper-popup";
 
 export const Avatar = ({
   onChange,
@@ -15,11 +16,18 @@ export const Avatar = ({
   isCroppedImage,
   setState,
   onSetCroppedImage,
-  state
+  state,
+  step2State,
+  showAvatarPopup
 }) => {
-  const cropperRef = useRef(null);
 
   let uploadAvatar;
+
+  const ref=useRef(null);
+
+  const onFileUploaded=()=>{
+      setState({...state,showAvatarPopup:true})
+  }
 
   const onClickUpload=()=>{
     
@@ -49,30 +57,11 @@ export const Avatar = ({
       onClick={onClickUpload}
       className="avatar-container"
     >
-      {!avatar ? (
-        <img
-          alt="avatar"
-          src={isCroppedImage ? croppedImage : placeholderImage}
-          className="avatar-container__image"
-        />
-      ) : !isCroppedImage ? (
-        <Cropper
-          ref={cropperRef}
-          src={avatar}
-          className="avatar-container__crop"
-          guides
-          crop={() => onCrop(cropperRef)}
-        />
-      ) : null}
-      {isCroppedImage && (
-        <img
-          alt="cropped-avatar"
-          src={isCroppedImage ? croppedImage : placeholderImage}
-          className="avatar-container__image"
-        />
-      )}
+      <img style={{width:20,height:20}} src={avatar?avatar:placeholderImage}/>
       <span className="avatar-container__text">Click to edit</span>
+
     </div>
+
   );
 
   const renderInputContainer = () => (
@@ -82,15 +71,18 @@ export const Avatar = ({
       ref={ref => (uploadAvatar = ref)}
       type="file"
       onChange={onChange}
+      onInputCapture={onFileUploaded}
       className="avatar-input-file"
     />
   );
+  const renderCropperPopup=()=><CropperPopup state={state} setState={setState} showCropModal={showAvatarPopup} ref={{"yuv":"bubg"}} currentImage={avatar} setCropModalState={setState} onCrop={onCrop} step2State={step2State} />
 
   return (
     <Fragment>
       {renderInputContainer()}
       {renderImageContainer()}
       {renderCropContainer()}
+      {renderCropperPopup()}
     </Fragment>
   );
 };
