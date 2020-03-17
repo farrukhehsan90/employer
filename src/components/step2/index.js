@@ -30,7 +30,7 @@ export const Step2 = () => {
   };
   const [state, setState] = useState(initialState);
 
-  // const [currentReference,setCurrentReference]=useState(null);
+
 
 
 
@@ -97,7 +97,7 @@ export const Step2 = () => {
   }
 
   const onCropAvatar = ref => {
-    // const { currentRef: cropperRef } = state;
+
     const croppedImage = ref.current.getCroppedCanvas().toDataURL();
 
 
@@ -168,11 +168,11 @@ export const Step2 = () => {
 
     const base64 = currentRef.current.getCroppedCanvas().toDataURL();
 
-    // fetch(base64)
-    //   .then(res => res.arrayBuffer())
-    //   .then(blob => {
-    //     const file = new File([blob], currentFile, { type: "image/png" });
-    //   });
+
+
+
+
+
 
     const filteredFileIndex = files.findIndex(file => {
       return file.file.name.trim().toString() === currentFile.toString().trim();
@@ -185,16 +185,16 @@ export const Step2 = () => {
 
     updatedItem.image = base64;
 
-    // updatedArray[filteredFileIndex].image=base64;
+
 
 
 
     arrayClone.splice(parseInt(filteredFileIndex), 1, updatedItem);
 
-    // const newFiles = {
-    //   ...updatedFiles,
-    // file
-    // };
+
+
+
+
 
     setState({ ...state, files: arrayClone, showCropModal: false });
   };
