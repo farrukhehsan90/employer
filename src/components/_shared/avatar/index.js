@@ -76,7 +76,7 @@ export const Avatar = ({
     return (
       <div
         className="cropper-popup-container"
-        style={!showAvatarPopup && { display: "none" }}
+        style={{...!showAvatarPopup && { display: "none" },...{}}}
       >
         <Cropper style={{ width: 400, height: 400 }} src={avatar} ref={ref} />
         <div className="cropper-popup-container__buttons">

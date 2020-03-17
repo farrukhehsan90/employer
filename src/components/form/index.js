@@ -100,6 +100,7 @@ export const Form = () => {
                 }
               ].map(({ name, value, placeholder }) => (
                 <Input
+                  key={name}
                   errors={error}
                   name={name}
                   value={value}

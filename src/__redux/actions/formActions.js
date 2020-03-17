@@ -1,4 +1,4 @@
-import { SAVE_USER_DETAILS, LOADING, BACK, SAVE_CROPPER_REF } from "./types";
+import { LOADING, BACK, SAVE_CROPPER_REF } from "./types";
 
 export const saveForm = (dispatch) => {
   //SAVE FORM

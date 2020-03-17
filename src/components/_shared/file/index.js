@@ -7,12 +7,10 @@ import "cropperjs/dist/cropper.css";
 import { useDispatch } from "react-redux";
 import "./index.scss";
 import { Button } from "../modal/button";
+import minusIcon from '../../../__assets/minus-icon.png';
 
-import { SAVE_CROPPER_REF } from "../../../__redux/actions/types";
-import { store } from "../../../__redux/store";
 
 export const CustomFile = ({
-  index,
   type,
   file,
   onChange,
@@ -20,14 +18,16 @@ export const CustomFile = ({
   showCropModal,
   setCropModalState,
   step2State,
-  setCurrentRef,
   currentImage,
   image,
-  files
+  files,
+  onDeleteFile,
+  currentFile
 }) => {
   const [name, setName] = useState(file.name);
   const initialState = {
-    fileImage: ""
+    fileImage: "",
+    showDeleteButton:false
   };
 
   const ref = useRef(file.name);
@@ -36,7 +36,7 @@ export const CustomFile = ({
 
   const [state, setState] = useState(initialState);
 
-  const { fileImage } = state;
+  const { fileImage ,showDeleteButton} = state;
 
   useEffect(() => {
     formatFile();
@@ -80,15 +80,15 @@ export const CustomFile = ({
         />
       }
 
-      <div
+      {file.name.trim().toString()===currentFile &&<div
         className="modal-cropper-container__overlay"
-        style={!showCropModal && { display: "none" }}
+        style={{...!showCropModal && { display: "none" },...{}}}
       >
         &nbsp;
-      </div>
-      <div
+      </div>}
+      {file.name.trim().toString()===currentFile && <div
         className="modal-cropper-container__main"
-        style={!showCropModal && { display: "none" }}
+        style={{...!showCropModal && { display: "none" },...{}}}
       >
         {
           <Cropper
@@ -113,12 +113,11 @@ export const CustomFile = ({
             buttonText="Cancel"
           />
         </div>
-      </div>
+      </div>}
       {type && type.includes("image") && (
         <Button
           style={{ opacity: 1 }}
           onClick={() => {
-            store.dispatch({ type: SAVE_CROPPER_REF, payload: ref });
             return setCropModalState({
               ...step2State,
               showCropModal: true,
@@ -140,5 +139,14 @@ export const CustomFile = ({
     </div>
   );
 
-  return renderFileContainer();
+  const renderDeleteButton=()=><div onClick={()=>onDeleteFile(file)} className="file-component__delete-button" style={{...{},...!showDeleteButton && {display:'none'}}}>
+    <img src={minusIcon} style={{width:"50%"}}/>
+  </div>
+
+  return (
+    <div className="overall-file-container" onMouseEnter={()=>setState({...state,showDeleteButton:true})} onMouseLeave={()=>setState({...state,showDeleteButton:false})}>
+      {renderFileContainer()}
+      {renderDeleteButton()}
+    </div>
+  );
 };

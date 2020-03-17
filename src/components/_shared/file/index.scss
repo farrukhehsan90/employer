@@ -1,53 +1,73 @@
-.file-component-container {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
+.overall-file-container {
+  position: relative;
 
-  .file-component-container__image {
-    width: 75px;
-    height: 75px;
+  .file-component-container {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    position: relative;
+
+    .file-component-container__image {
+      width: 75px;
+      height: 75px;
+      padding: 10px;
+    }
+
+    .file-component-container__text {
+      border-radius: 5px;
+      width: 90%;
+      height: 1.6vw;
+      outline: none;
+    }
   }
 
-  .file-component-container__text {
-    border-radius: 5px;
-    width: 90%;
-    height: 1.6vw;
-    outline: none;
+  .modal-cropper-container__overlay {
+    z-index: 50;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.4;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translate(-10%, -23%);
   }
-}
 
-.modal-cropper-container__overlay {
-  z-index: 50;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  opacity: 0.4;
-  position: absolute;
-  top: -24%;
-  left: -11%;
-}
+  .modal-cropper-container__main {
+    background-color: #f3f3f3;
+    box-shadow: 0.5rem 0.5rem 1rem grey;
+    width: 400;
+    height: 450;
+    z-index: 100;
+    border-radius: 20;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translate(40%, -12%);
+  }
 
-.modal-cropper-container__main {
-  background-color: #f3f3f3;
-  box-shadow: 0.5rem 0.5rem 1rem grey;
-  width: 400;
-  height: 450;
-  z-index: 100;
-  border-radius: 20;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+  .modal-cropper-container__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 2%;
+  }
 
-.modal-cropper-container__buttons {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding-top: 2%;
+  .file-component__delete-button {
+    width: 20;
+    height: 20;
+    background-color: red;
+    border-radius: 70;
+    display: flex;
+    position: absolute;
+    top: 7%;
+    right: 16%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 }

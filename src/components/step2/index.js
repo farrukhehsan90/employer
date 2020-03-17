@@ -18,20 +18,21 @@ export const Step2 = () => {
     avatar: "",
     show: false,
     showCropModal: false,
-    files: {},
+    files: [],
     croppedImage: "",
     updatedCroppedImage: "",
     isCroppedImage: "",
     currentRef: {},
     currentImage: "",
     currentFile: "",
-    showAvatarPopup: false
+    showAvatarPopup: false,
+    radioValue:"Girl"
   };
   const [state, setState] = useState(initialState);
 
   // const [currentReference,setCurrentReference]=useState(null);
 
-  const avatarRef = useRef();
+
 
   const {
     avatar,
@@ -44,11 +45,12 @@ export const Step2 = () => {
     currentImage,
     currentFile,
     currentRef,
-    showAvatarPopup
+    showAvatarPopup,
+    radioValue
   } = state;
 
   const auth = useSelector(state => state.auth);
-  const form= useSelector(state => state.form);
+  const form = useSelector(state => state.form);
 
   const { doneWithStep2 } = auth;
 
@@ -56,26 +58,51 @@ export const Step2 = () => {
 
   const onChange = (e, file) => {};
 
+  const onRadioChange=(e)=>{
+
+    setState({...state,radioValue:e.target.value})
+
+  }
+
   const onUploadResume = e => {
     const { files: uploadedFiles } = e.target;
 
     if (uploadedFiles.length > 0) {
-
-      const newUpdatedFiles=Object.keys(uploadedFiles).map(file=>({image:"",file:uploadedFiles[file]}))
+      const newUpdatedFiles = Object.keys(uploadedFiles).map(file => ({
+        image: "",
+        file: uploadedFiles[file]
+      }));
 
       setTimeout(() => {
-        setState({ ...state, show: true, files: newUpdatedFiles });
+        setState(prevState => ({
+          ...prevState,
+          show: true,
+          files: prevState.files.concat(...newUpdatedFiles)
+        }));
       }, 1500);
     }
   };
+
+
+  const onDeleteFile=(file)=>{
+
+    const updatedFiles=files.filter(singleFile=>{
+
+      return singleFile.file.name!==file.name
+    
+    });
+
+    setState({...state,files:updatedFiles});
+
+  }
 
   const onCropAvatar = ref => {
     // const { currentRef: cropperRef } = state;
     const croppedImage = ref.current.getCroppedCanvas().toDataURL();
 
-    console.log('ref',ref);
 
-    setState({ ...state, croppedImage,showAvatarPopup:false });
+
+    setState({ ...state, croppedImage, showAvatarPopup: false });
   };
 
   const onSetCroppedImage = () => {
@@ -101,8 +128,6 @@ export const Step2 = () => {
     });
   };
 
-
-
   const renderModal = () => (
     <Modal
       onClickUpload={() => setState({ ...state, show: false })}
@@ -116,6 +141,7 @@ export const Step2 = () => {
         Object.keys(files).map((file, index) => {
           return (
             <CustomFile
+              currentFile={currentFile}
               setCropModalState={setState}
               showCropModal={showCropModal}
               step2State={state}
@@ -129,6 +155,8 @@ export const Step2 = () => {
               key={file}
               image={files[file].image}
               currentImage={currentImage}
+              onDeleteFile={onDeleteFile}
+            
             />
           );
         })}
@@ -138,10 +166,7 @@ export const Step2 = () => {
   const onCrop = () => {
     const { files, currentFile } = state;
 
-
     const base64 = currentRef.current.getCroppedCanvas().toDataURL();
-
-
 
     // fetch(base64)
     //   .then(res => res.arrayBuffer())
@@ -149,35 +174,29 @@ export const Step2 = () => {
     //     const file = new File([blob], currentFile, { type: "image/png" });
     //   });
 
-        const filteredFileIndex = files.findIndex(file => {
-          return (
-            file.file.name.trim().toString() === currentFile.toString().trim()
-          );
-        });
+    const filteredFileIndex = files.findIndex(file => {
+      return file.file.name.trim().toString() === currentFile.toString().trim();
+    });
 
-        const arrayClone=[
-          ...files
-        ];
-        const updatedItem=files[filteredFileIndex];
+    const arrayClone = [...files];
+    const updatedItem = files[filteredFileIndex];
 
-        console.log('updatedArray',updatedItem);
 
-        updatedItem.image=base64;
 
-        // updatedArray[filteredFileIndex].image=base64;
-        
-        console.log('updatedArray',updatedItem);
+    updatedItem.image = base64;
 
-        arrayClone.splice(parseInt(filteredFileIndex),1,updatedItem);
+    // updatedArray[filteredFileIndex].image=base64;
 
-      
 
-        // const newFiles = {
-        //   ...updatedFiles,
-          // file
-        // };
 
-        setState({ ...state, files: arrayClone, showCropModal: false });
+    arrayClone.splice(parseInt(filteredFileIndex), 1, updatedItem);
+
+    // const newFiles = {
+    //   ...updatedFiles,
+    // file
+    // };
+
+    setState({ ...state, files: arrayClone, showCropModal: false });
   };
 
   const renderFormBody = () => (
@@ -193,12 +212,11 @@ export const Step2 = () => {
         onSetCroppedImage={onSetCroppedImage}
         onCrop={onCropAvatar}
         avatar={avatar}
-        ref={avatarRef}
         onChange={onChangeAvatar}
       />
       <div className="form-container__forms">
         <DateInput placeholder="Enter your birth date" />
-        <RadioInput placeholder="Select your gender" />
+        <RadioInput onChange={onRadioChange} value={radioValue} placeholder="Select your gender" />
         <FileInput
           onChange={onUploadResume}
           type="file"
