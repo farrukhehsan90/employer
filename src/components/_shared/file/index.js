@@ -68,7 +68,7 @@ export const CustomFile = ({
   // useEffect for rendering after each upload/re-upload
   useEffect(() => {
     formatFile();
-  }, [files, formatFile]);
+  }, [files,formatFile]);
 
   // Render Functions
 
