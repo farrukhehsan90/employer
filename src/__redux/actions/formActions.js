@@ -1,7 +1,9 @@
 import { LOADING, BACK, SAVE_CROPPER_REF } from "./types";
 
+
+// Action called for saving a form
 export const saveForm = dispatch => {
-  //SAVE FORM
+
   dispatch(setLoading(true));
   setTimeout(() => {
     dispatch(setLoading(false));
@@ -12,6 +14,7 @@ export const saveForm = dispatch => {
   }, 3500);
 };
 
+// Action called to store the current ref
 export const saveCurrentRef = ref => dispatch =>
   dispatch({ type: SAVE_CROPPER_REF, payload: ref });
 

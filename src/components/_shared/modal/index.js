@@ -12,6 +12,8 @@ export const Modal = ({
   onClickUpload,
   useAsRows
 }) => {
+  // Render Functions
+
   const renderButtons = () => (
     <div className="modal-container__button-container">
       <Button

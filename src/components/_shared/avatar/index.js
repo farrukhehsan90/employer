@@ -19,9 +19,13 @@ export const Avatar = ({
   showModal,
   showAvatarPopup
 }) => {
+  //Empty variable for storing input file ref
   let uploadAvatar;
 
+  //Ref used for cropping
   const ref = useRef(null);
+
+  //Logic functions
 
   const onFileUploaded = () => {
     setState({ ...state, showAvatarPopup: true });
@@ -32,6 +36,8 @@ export const Avatar = ({
     uploadAvatar.click();
     return;
   };
+
+  //Render Functions
 
   const renderImageContainer = () => (
     <div onClick={onClickUpload} className="avatar-container">
@@ -55,6 +61,7 @@ export const Avatar = ({
       className="avatar-input-file"
     />
   );
+
   const renderCropperPopup = () => {
     return (
       <div

@@ -18,6 +18,17 @@ export const FormFields = () => {
     values: {}
   };
 
+  const [state, setState] = useState(initialState);
+
+  const { error, inputs, values } = state;
+
+  const dispatch = useDispatch();
+
+  const { loading, atStep2, userName, firstName, lastName } = auth;
+
+
+  // Logic Functions
+
   const onChangeInputFields = (e, name) => {
     const { value } = e.target;
 
@@ -36,14 +47,6 @@ export const FormFields = () => {
       })
     );
   };
-
-  const [state, setState] = useState(initialState);
-
-  const { error, inputs, values } = state;
-
-  const dispatch = useDispatch();
-
-  const { loading, atStep2, userName, firstName, lastName } = auth;
 
   const onClickNext = e => {
     e.preventDefault();
@@ -72,6 +75,8 @@ export const FormFields = () => {
 
     return saveForm(dispatch);
   };
+
+  //Render Functions
 
   const renderSpinner = () => <Spinner />;
 

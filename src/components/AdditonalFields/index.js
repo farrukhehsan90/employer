@@ -53,11 +53,17 @@ export const AdditonalFields = () => {
     questions
   } = state;
 
+
   const auth = useSelector(state => state.auth);
 
   const { doneWithStep2 } = auth;
 
   const dispatch = useDispatch();
+
+  
+  
+  
+  //Logic Functions
 
   const onChange = (e, file) => {};
 
@@ -124,6 +130,40 @@ export const AdditonalFields = () => {
     });
   };
 
+  const onChangeEducation = (e, question, id) => {
+    e.persist();
+    const { value } = e.target;
+
+    return setState(prevState => ({
+      ...state,
+      questions: {
+        ...prevState.questions,
+        [question]: value
+      }
+    }));
+  };
+
+  const onCrop = () => {
+    const { files, currentFile } = state;
+
+    const base64 = currentRef.current.getCroppedCanvas().toDataURL();
+
+    const filteredFileIndex = files.findIndex(file => {
+      return file.file.name.trim().toString() === currentFile.toString().trim();
+    });
+
+    const arrayClone = [...files];
+    const updatedItem = files[filteredFileIndex];
+
+    updatedItem.image = base64;
+
+    arrayClone.splice(parseInt(filteredFileIndex), 1, updatedItem);
+
+    setState({ ...state, files: arrayClone, showCropModal: false });
+  };
+
+  //Render Functions
+
   const renderModal = () => (
     <Modal
       useAsRows
@@ -158,38 +198,6 @@ export const AdditonalFields = () => {
         })}
     </Modal>
   );
-
-  const onChangeEducation = (e, question, id) => {
-    e.persist();
-    const { value } = e.target;
-
-    return setState(prevState => ({
-      ...state,
-      questions: {
-        ...prevState.questions,
-        [question]: value
-      }
-    }));
-  };
-
-  const onCrop = () => {
-    const { files, currentFile } = state;
-
-    const base64 = currentRef.current.getCroppedCanvas().toDataURL();
-
-    const filteredFileIndex = files.findIndex(file => {
-      return file.file.name.trim().toString() === currentFile.toString().trim();
-    });
-
-    const arrayClone = [...files];
-    const updatedItem = files[filteredFileIndex];
-
-    updatedItem.image = base64;
-
-    arrayClone.splice(parseInt(filteredFileIndex), 1, updatedItem);
-
-    setState({ ...state, files: arrayClone, showCropModal: false });
-  };
 
   const renderEducation = () => (
     <Fragment>

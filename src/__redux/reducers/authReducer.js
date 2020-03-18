@@ -1,6 +1,8 @@
 import { LOADING, BACK, SAVE_USER_DETAILS, DONE } from "../actions/types";
 import { SIGNUP } from "../actions/types";
 
+
+// initial state object for the reducer "auth"
 const initialState = {
   email: "",
   password: "",

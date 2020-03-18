@@ -3,6 +3,7 @@ import { store } from "../store";
 
 export const login = () => {};
 
+// TODO: Signup
 export const signup = (email, userDetails) => {
   const { dispatch } = store;
 
@@ -24,6 +25,7 @@ export const signup = (email, userDetails) => {
   }, 3500);
 };
 
+// Action called after every change of form input text
 export const onChangeForm = value => {
   return store.dispatch({
     type: SAVE_USER_DETAILS,

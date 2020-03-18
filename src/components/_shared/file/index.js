@@ -22,16 +22,20 @@ export const CustomFile = ({
   onDeleteFile,
   currentFile
 }) => {
+  // Initial state object of the component
   const initialState = {
     fileImage: "",
     showDeleteButton: false
   };
 
+  // Ref used for cropping
   const ref = useRef(file.name);
 
   const [state, setState] = useState(initialState);
 
   const { fileImage, showDeleteButton } = state;
+
+  // Logic functions
 
   const formatFile = useCallback(() => {
     const { fileImage } = state;
@@ -61,9 +65,12 @@ export const CustomFile = ({
     }
   }, [file, state, type]);
 
+  // useEffect for rendering after each upload/re-upload
   useEffect(() => {
     formatFile();
   }, [files, formatFile]);
+
+  // Render Functions
 
   const renderFileContainer = () => (
     <div className="file-component-container">

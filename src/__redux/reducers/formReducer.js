@@ -1,5 +1,6 @@
 import { SAVE_USER_DETAILS, SAVE_CROPPER_REF } from "../actions/types";
 
+// initial state object for the reducer "auth"
 const initialState = {
   email: "",
   password: "",

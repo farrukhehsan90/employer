@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 const preloadedState = {};
 const middlewares = [thunk];
 
+// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() for redux devtools extension
 export const store = createStore(
   rootReducer,
   preloadedState,
