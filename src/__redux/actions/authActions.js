@@ -1,5 +1,5 @@
 import { LOADING, SIGNUP, SAVE_USER_DETAILS } from "./types";
-import {store} from "../store";
+import { store } from "../store";
 
 export const login = () => {};
 
@@ -25,8 +25,6 @@ export const signup = (email, userDetails) => {
 };
 
 export const onChangeForm = value => {
-
-  
   return store.dispatch({
     type: SAVE_USER_DETAILS,
     payload: {

@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import csv from "../../../__assets/csv-format.png";
 import doc from "../../../__assets/doc-format.png";
 import pdf from "../../../__assets/pdf-format.png";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { useDispatch } from "react-redux";
 import "./index.scss";
-import { Button } from "../modal/button";
-import minusIcon from '../../../__assets/minus-icon.png';
-
+import { Button } from "../Modal/button";
+import minusIcon from "../../../__assets/minus-icon.png";
 
 export const CustomFile = ({
   type,
@@ -24,25 +22,18 @@ export const CustomFile = ({
   onDeleteFile,
   currentFile
 }) => {
-  const [name, setName] = useState(file.name);
   const initialState = {
     fileImage: "",
-    showDeleteButton:false
+    showDeleteButton: false
   };
 
   const ref = useRef(file.name);
 
-  const dispatch = useDispatch();
-
   const [state, setState] = useState(initialState);
 
-  const { fileImage ,showDeleteButton} = state;
+  const { fileImage, showDeleteButton } = state;
 
-  useEffect(() => {
-    formatFile();
-  }, [files]);
-
-  const formatFile = () => {
+  const formatFile = useCallback(() => {
     const { fileImage } = state;
 
     const fileType = type && type.toString();
@@ -68,7 +59,11 @@ export const CustomFile = ({
       setState({ ...state, fileImage: pdf });
       return fileImage;
     }
-  };
+  }, [file, state, type]);
+
+  useEffect(() => {
+    formatFile();
+  }, [files, formatFile]);
 
   const renderFileContainer = () => (
     <div className="file-component-container">
@@ -80,40 +75,44 @@ export const CustomFile = ({
         />
       }
 
-      {file.name.trim().toString()===currentFile &&<div
-        className="modal-cropper-container__overlay"
-        style={{...!showCropModal && { display: "none" },...{}}}
-      >
-        &nbsp;
-      </div>}
-      {file.name.trim().toString()===currentFile && <div
-        className="modal-cropper-container__main"
-        style={{...!showCropModal && { display: "none" },...{}}}
-      >
-        {
-          <Cropper
-            ref={ref}
-            zoomable
-            zoomOnWheel
-            style={{ width: 400, height: 400 }}
-            src={currentImage}
-          />
-        }
-        <div className="modal-cropper-container__buttons">
-          <Button
-            buttonText="Crop"
-            onClick={() => {
-              onCrop(file.name);
-            }}
-          />
-          <Button
-            onClick={() =>
-              setCropModalState({ ...step2State, showCropModal: false })
-            }
-            buttonText="Cancel"
-          />
+      {file.name.trim().toString() === currentFile && (
+        <div
+          className="modal-cropper-container__overlay"
+          style={{ ...(!showCropModal && { display: "none" }), ...{} }}
+        >
+          &nbsp;
         </div>
-      </div>}
+      )}
+      {file.name.trim().toString() === currentFile && (
+        <div
+          className="modal-cropper-container__main"
+          style={{ ...(!showCropModal && { display: "none" }), ...{} }}
+        >
+          {
+            <Cropper
+              ref={ref}
+              zoomable
+              zoomOnWheel
+              style={{ width: 400, height: 400 }}
+              src={currentImage}
+            />
+          }
+          <div className="modal-cropper-container__buttons">
+            <Button
+              buttonText="Crop"
+              onClick={() => {
+                onCrop(file.name);
+              }}
+            />
+            <Button
+              onClick={() =>
+                setCropModalState({ ...step2State, showCropModal: false })
+              }
+              buttonText="Cancel"
+            />
+          </div>
+        </div>
+      )}
       {type && type.includes("image") && (
         <Button
           style={{ opacity: 1 }}
@@ -139,12 +138,22 @@ export const CustomFile = ({
     </div>
   );
 
-  const renderDeleteButton=()=><div onClick={()=>onDeleteFile(file)} className="file-component__delete-button" style={{...{},...!showDeleteButton && {display:'none'}}}>
-    <img src={minusIcon} style={{width:"50%"}}/>
-  </div>
+  const renderDeleteButton = () => (
+    <div
+      onClick={() => onDeleteFile(file)}
+      className="file-component__delete-button"
+      style={{ ...{}, ...(!showDeleteButton && { display: "none" }) }}
+    >
+      <img alt="delete-button" src={minusIcon} style={{ width: "50%" }} />
+    </div>
+  );
 
   return (
-    <div className="overall-file-container" onMouseEnter={()=>setState({...state,showDeleteButton:true})} onMouseLeave={()=>setState({...state,showDeleteButton:false})}>
+    <div
+      className="overall-file-container"
+      onMouseEnter={() => setState({ ...state, showDeleteButton: true })}
+      onMouseLeave={() => setState({ ...state, showDeleteButton: false })}
+    >
       {renderFileContainer()}
       {renderDeleteButton()}
     </div>

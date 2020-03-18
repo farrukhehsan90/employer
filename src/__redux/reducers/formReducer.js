@@ -1,10 +1,10 @@
-import { SAVE_USER_DETAILS,SAVE_CROPPER_REF } from "../actions/types";
+import { SAVE_USER_DETAILS, SAVE_CROPPER_REF } from "../actions/types";
 
 const initialState = {
   email: "",
   password: "",
   isAuthenticated: false,
-  currentRef:null
+  currentRef: null
 };
 
 export const formReducer = (state = initialState, action) => {
@@ -12,13 +12,11 @@ export const formReducer = (state = initialState, action) => {
     case SAVE_USER_DETAILS:
       return state;
     case SAVE_CROPPER_REF:
-
       return {
         ...state,
-        currentRef:action.payload
+        currentRef: action.payload
       };
     default:
       return state;
   }
 };
-

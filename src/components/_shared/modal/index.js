@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "./index.scss";
-import {Button} from "./button";
+import { Button } from "./button";
 
 export const Modal = ({
   show,
@@ -9,7 +9,8 @@ export const Modal = ({
   actionBtnText,
   cancelBtnText,
   onClickCancel,
-  onClickUpload
+  onClickUpload,
+  useAsRows
 }) => {
   const renderButtons = () => (
     <div className="modal-container__button-container">
@@ -28,17 +29,22 @@ export const Modal = ({
     </div>
   );
 
-  const renderModalContainer=()=>
-  <Fragment>
-
-  {show && (
-    <div className="modal-container">
-      <div className="modal-container__header">{text}</div>
-      <div className="modal-container__files">{children}</div>
-      {renderButtons()}
-  </div>)}
-  </Fragment>
+  const renderModalContainer = () => (
+    <Fragment>
+      {show && (
+        <div className="modal-container">
+          <div className="modal-container__header">{text}</div>
+          <div
+            style={!useAsRows ? { height: "100%" } : {}}
+            className="modal-container__files"
+          >
+            {children}
+          </div>
+          {renderButtons()}
+        </div>
+      )}
+    </Fragment>
+  );
 
   return renderModalContainer();
 };
-

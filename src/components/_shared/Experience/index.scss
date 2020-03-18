@@ -1,0 +1,18 @@
+.experience-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  .experience-text {
+    font-size: medium;
+  }
+
+  .experience-input {
+    width: 50%;
+    outline: none;
+    background-color: transparent;
+    border: 0px solid;
+    text-align: center;
+  }
+}

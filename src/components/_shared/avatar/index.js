@@ -1,12 +1,10 @@
 import React, { Fragment, useRef } from "react";
 import placeholderImage from "../../../__assets/avatar-icon.svg";
 import Cropper from "react-cropper";
-import tickIcon from "../../../__assets/tick-icon.png";
-import closeIcon from "../../../__assets/close-icon.png";
 import "cropperjs/dist/cropper.css";
 
 import "./index.scss";
-import { Button } from "../modal/button";
+import { Button } from "../Modal/button";
 
 export const Avatar = ({
   onChange,
@@ -35,25 +33,10 @@ export const Avatar = ({
     return;
   };
 
-  const renderCropContainer = () => (
-    <div className="crop-container">
-      {avatar && !isCroppedImage ? (
-        <div className="crop-container__group">
-          <img
-            alt="confirm"
-            onClick={onSetCroppedImage}
-            className="crop-container__tick"
-            src={tickIcon}
-          />
-          <img alt="cancel" className="crop-container__close" src={closeIcon} />
-        </div>
-      ) : null}
-    </div>
-  );
-
   const renderImageContainer = () => (
     <div onClick={onClickUpload} className="avatar-container">
       <img
+        alt="profile"
         style={{ width: 45, height: 45, borderRadius: 90 }}
         src={croppedImage ? croppedImage : placeholderImage}
       />
@@ -76,7 +59,7 @@ export const Avatar = ({
     return (
       <div
         className="cropper-popup-container"
-        style={{...!showAvatarPopup && { display: "none" },...{}}}
+        style={{ ...(!showAvatarPopup && { display: "none" }), ...{} }}
       >
         <Cropper style={{ width: 400, height: 400 }} src={avatar} ref={ref} />
         <div className="cropper-popup-container__buttons">
@@ -101,7 +84,7 @@ export const Avatar = ({
     <Fragment>
       {renderInputContainer()}
       {renderImageContainer()}
-      {/* {renderCropContainer()} */}
+
       {renderCropperPopup()}
     </Fragment>
   );

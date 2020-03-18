@@ -12,5 +12,3 @@ export const Button = ({ style, color, textColor, buttonText, onClick }) => {
     </button>
   );
 };
-
-

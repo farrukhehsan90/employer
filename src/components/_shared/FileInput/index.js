@@ -21,4 +21,3 @@ export const FileInput = ({ placeholder, type, id, onChange }) => {
     </Fragment>
   );
 };
-

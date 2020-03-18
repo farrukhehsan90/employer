@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "description": "What is the name of your university?",
+    "value": ""
+  },
+  {
+    "id": 2,
+    "description": "What is the name of your course?",
+    "value": ""
+  },
+  {
+    "id": 3,
+    "description": "What is your specialization?",
+    "value": ""
+  },
+  {
+    "id": 4,
+    "description": "What is your GPA/CGPA ?",
+    "value": ""
+  }
+]

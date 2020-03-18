@@ -1,19 +1,22 @@
-import React, { useState, Fragment, createRef, useEffect, useRef } from "react";
+import React, { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import backButton from "../../__assets/back-button.svg";
 
 import { BACK, DONE } from "../../__redux/actions/types";
-import { FileInput } from "../_shared/file-input";
-import { DateInput } from "../_shared/date-input";
-import { RadioInput } from "../_shared/radio-input";
-import { Avatar } from "../_shared/avatar/index";
+import { FileInput } from "../_shared/FileInput";
+import { DateInput } from "../_shared/DateInput";
+import { RadioInput } from "../_shared/RadioInput";
+import { Avatar } from "../_shared/Avatar/index";
 
 import "./index.scss";
-import { CustomFile } from "../_shared/file";
-import { Modal } from "../_shared/modal";
-import { Done } from "../done";
+import { CustomFile } from "../_shared/File";
+import { Modal } from "../_shared/Modal";
+import { Done } from "../Done";
+import { Experience } from "../_shared/Experience";
+import { Education } from "../_shared/Education";
+import questionsJSON from "../../__assets/questions.json";
 
-export const Step2 = () => {
+export const AdditonalFields = () => {
   const initialState = {
     avatar: "",
     show: false,
@@ -26,31 +29,31 @@ export const Step2 = () => {
     currentImage: "",
     currentFile: "",
     showAvatarPopup: false,
-    radioValue:"Girl"
+    radioValue: "Girl",
+    experienceValue: "0",
+    showEducationModal: false,
+    questions: {}
   };
   const [state, setState] = useState(initialState);
-
-
-
-
 
   const {
     avatar,
     show,
     files,
     croppedImage,
-    updatedCroppedImage,
     isCroppedImage,
     showCropModal,
     currentImage,
     currentFile,
     currentRef,
     showAvatarPopup,
-    radioValue
+    radioValue,
+    experienceValue,
+    showEducationModal,
+    questions
   } = state;
 
   const auth = useSelector(state => state.auth);
-  const form = useSelector(state => state.form);
 
   const { doneWithStep2 } = auth;
 
@@ -58,11 +61,12 @@ export const Step2 = () => {
 
   const onChange = (e, file) => {};
 
-  const onRadioChange=(e)=>{
+  const onRadioChange = e => {
+    setState({ ...state, radioValue: e.target.value });
+  };
 
-    setState({...state,radioValue:e.target.value})
-
-  }
+  const onChangeExperienceValue = e =>
+    setState({ ...state, experienceValue: e.target.value });
 
   const onUploadResume = e => {
     const { files: uploadedFiles } = e.target;
@@ -83,24 +87,16 @@ export const Step2 = () => {
     }
   };
 
-
-  const onDeleteFile=(file)=>{
-
-    const updatedFiles=files.filter(singleFile=>{
-
-      return singleFile.file.name!==file.name
-    
+  const onDeleteFile = file => {
+    const updatedFiles = files.filter(singleFile => {
+      return singleFile.file.name !== file.name;
     });
 
-    setState({...state,files:updatedFiles});
-
-  }
+    setState({ ...state, files: updatedFiles, show: updatedFiles.length > 0 });
+  };
 
   const onCropAvatar = ref => {
-
     const croppedImage = ref.current.getCroppedCanvas().toDataURL();
-
-
 
     setState({ ...state, croppedImage, showAvatarPopup: false });
   };
@@ -130,6 +126,7 @@ export const Step2 = () => {
 
   const renderModal = () => (
     <Modal
+      useAsRows
       onClickUpload={() => setState({ ...state, show: false })}
       onClickCancel={() => setState({ ...state, show: false })}
       show={show}
@@ -156,23 +153,29 @@ export const Step2 = () => {
               image={files[file].image}
               currentImage={currentImage}
               onDeleteFile={onDeleteFile}
-            
             />
           );
         })}
     </Modal>
   );
 
+  const onChangeEducation = (e, question, id) => {
+    e.persist();
+    const { value } = e.target;
+
+    return setState(prevState => ({
+      ...state,
+      questions: {
+        ...prevState.questions,
+        [question]: value
+      }
+    }));
+  };
+
   const onCrop = () => {
     const { files, currentFile } = state;
 
     const base64 = currentRef.current.getCroppedCanvas().toDataURL();
-
-
-
-
-
-
 
     const filteredFileIndex = files.findIndex(file => {
       return file.file.name.trim().toString() === currentFile.toString().trim();
@@ -181,23 +184,38 @@ export const Step2 = () => {
     const arrayClone = [...files];
     const updatedItem = files[filteredFileIndex];
 
-
-
     updatedItem.image = base64;
-
-
-
-
 
     arrayClone.splice(parseInt(filteredFileIndex), 1, updatedItem);
 
-
-
-
-
-
     setState({ ...state, files: arrayClone, showCropModal: false });
   };
+
+  const renderEducation = () => (
+    <Fragment>
+      <span
+        style={{ width: "100%", textAlign: "center" }}
+        onClick={() => setState({ ...state, showEducationModal: true })}
+      >
+        Add your education here
+      </span>
+      <Modal
+        useAsRows={false}
+        actionBtnText="Add"
+        cancelBtnText="Cancel"
+        text="Add your Education"
+        onClickUpload={() => setState({ ...state, showEducationModal: false })}
+        onClickCancel={() => setState({ ...state, showEducationModal: false })}
+        show={showEducationModal}
+      >
+        <Education
+          values={questions}
+          questions={questionsJSON}
+          onChange={onChangeEducation}
+        />
+      </Modal>
+    </Fragment>
+  );
 
   const renderFormBody = () => (
     <div className="form-container">
@@ -216,12 +234,27 @@ export const Step2 = () => {
       />
       <div className="form-container__forms">
         <DateInput placeholder="Enter your birth date" />
-        <RadioInput onChange={onRadioChange} value={radioValue} placeholder="Select your gender" />
+        <RadioInput
+          onChange={onRadioChange}
+          value={radioValue}
+          placeholder="Select your gender"
+        />
         <FileInput
           onChange={onUploadResume}
           type="file"
           placeholder="Upload Resume"
         />
+        {files.length > 0 && (
+          <span onClick={() => setState({ ...state, show: true })}>
+            Preview files
+          </span>
+        )}
+        <Experience
+          text="Experience"
+          value={experienceValue}
+          onChange={onChangeExperienceValue}
+        />
+        {renderEducation()}
         <button
           onClick={onClickSubmit}
           className="form-container__forms--submit-button"

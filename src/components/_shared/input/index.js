@@ -16,5 +16,3 @@ export const Input = ({ placeholder, type, name, value, onChange, errors }) => {
     </div>
   );
 };
-
-

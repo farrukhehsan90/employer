@@ -1,0 +1,20 @@
+.education-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .education-input {
+    width: 100%;
+    height: 5vw;
+    margin-bottom: 2%;
+    border: 1px solid grey;
+    opacity: 0.6;
+    border-radius: 6px;
+    padding-left: 2%;
+    background-color: rgb(253, 252, 252);
+    color: grey;
+    outline: none;
+  }
+}

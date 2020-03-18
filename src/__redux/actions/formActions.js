@@ -1,6 +1,6 @@
 import { LOADING, BACK, SAVE_CROPPER_REF } from "./types";
 
-export const saveForm = (dispatch) => {
+export const saveForm = dispatch => {
   //SAVE FORM
   dispatch(setLoading(true));
   setTimeout(() => {
@@ -10,12 +10,12 @@ export const saveForm = (dispatch) => {
       payload: true
     });
   }, 3500);
-
 };
 
-export const saveCurrentRef=(ref)=>dispatch=>dispatch({type:SAVE_CROPPER_REF,payload:ref});
+export const saveCurrentRef = ref => dispatch =>
+  dispatch({ type: SAVE_CROPPER_REF, payload: ref });
 
-export const setLoading = (loading) => ({
+export const setLoading = loading => ({
   type: LOADING,
-  payload:loading
+  payload: loading
 });

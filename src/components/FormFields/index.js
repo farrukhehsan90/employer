@@ -1,24 +1,45 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onChangeForm } from "../../__redux/actions/authActions";
-import { Spinner } from "../_shared/spinner";
-import { Input } from "../_shared/input";
-import { Step2 } from "../step2";
+import { Spinner } from "../_shared/Spinner";
+import { Input } from "../_shared/Input";
+import { AdditonalFields } from "../AdditonalFields";
+import inputsJSON from "../../__assets/inputs.json";
 
 import "./index.scss";
-import { BACK } from "../../__redux/actions/types";
 import { saveForm } from "../../__redux/actions/formActions";
 
-export const Form = () => {
+export const FormFields = () => {
   const auth = useSelector(state => state.auth);
 
   const initialState = {
-    error: {}
+    error: {},
+    inputs: [...inputsJSON],
+    values: {}
+  };
+
+  const onChangeInputFields = (e, name) => {
+    const { value } = e.target;
+
+    setState({
+      ...state,
+      values: {
+        ...values,
+        [name]: value
+      }
+    });
+
+    dispatch(
+      onChangeForm({
+        key: name,
+        value
+      })
+    );
   };
 
   const [state, setState] = useState(initialState);
 
-  const { error } = state;
+  const { error, inputs, values } = state;
 
   const dispatch = useDispatch();
 
@@ -46,78 +67,54 @@ export const Form = () => {
         errors.lastName = "Please enter last name";
         setState({ ...state, error: errors });
         return;
+      default:
     }
 
     return saveForm(dispatch);
   };
 
-  const onChange = (e, name) => {
-    const { value } = e.target;
+  const renderSpinner = () => <Spinner />;
 
-    dispatch(
-      onChangeForm({
-        key: name,
-        value
-      })
-    );
+  const renderFormFields = () => (
+    <Fragment>
+      <div className="form-page-container__card--title">
+        <h1 className="form-page-container__sign-up">Sign Up</h1>
+      </div>
 
-    return;
+      <form
+        className="form-page-container__form"
+        noValidate
+        onSubmit={onClickNext}
+      >
+        {inputs.map(({ name, value, placeholder }) => (
+          <Input
+            key={name}
+            errors={error}
+            name={name}
+            value={values[name]}
+            onChange={e => onChangeInputFields(e, name)}
+            placeholder={placeholder}
+          />
+        ))}
+
+        <button
+          onClick={onClickNext}
+          className="form-page-container__card--next-button"
+        >
+          Next
+        </button>
+      </form>
+    </Fragment>
+  );
+
+  const renderCardContainer = () => {
+    return atStep2 ? <AdditonalFields /> : renderFormFields();
   };
 
   const renderCard = () => (
     <div className="form-page-container__card ">
       <div className="form-page-container__card--container">
-        {loading ? (
-          <Spinner />
-        ) : atStep2 ? (
-          <Step2 />
-        ) : (
-          <Fragment>
-            <div className="form-page-container__card--title">
-              <h1 className="form-page-container__sign-up">Sign Up</h1>
-            </div>
-
-            <form
-              className="form-page-container__form"
-              noValidate
-              onSubmit={onClickNext}
-            >
-              {[
-                {
-                  name: "userName",
-                  value: userName,
-                  placeholder: "Choose a username"
-                },
-                {
-                  name: "firstName",
-                  value: firstName,
-                  placeholder: "Enter first name"
-                },
-                {
-                  name: "lastName",
-                  value: lastName,
-                  placeholder: "Enter last name"
-                }
-              ].map(({ name, value, placeholder }) => (
-                <Input
-                  key={name}
-                  errors={error}
-                  name={name}
-                  value={value}
-                  onChange={onChange}
-                  placeholder={placeholder}
-                />
-              ))}
-
-              <button
-                onClick={onClickNext}
-                className="form-page-container__card--next-button"
-              >
-                Next
-              </button>
-            </form>
-          </Fragment>
-        )}
+        {loading ? renderSpinner() : renderCardContainer()}
       </div>
       <h5 className="form-page-container__card--existing-account">
         Already have an account?
